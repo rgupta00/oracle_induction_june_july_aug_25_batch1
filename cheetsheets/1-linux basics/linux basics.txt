@@ -207,6 +207,46 @@ head -n 3 facts.txt
 tail -n 2 facts.txt
 
 
+less vs more:
+--------------
+	The more and less commands in Linux are pagers
+	 — they let you view large text files page-by-page or screen-by-screen. 
+	 But less is much more powerful and flexible than more.
+
+✅ Quick Comparison Table
+Feature					more					less
+Basic purpose			View file page by page	View file page by page
+Scroll back				No					 	Yes
+Search					Forward only (/)		Forward & backward (/, ?)
+Open large files								Better performance
+Exit					q						q
+Navigation				Limited	Rich navigation (j, k, G, etc.)
+Real-time update (like logs)	NO				(with F like tail -f)
+
+Basic Usage
+-----------
+more filename.txt
+less filename.txt
+
+
+When to Use Which?
+-------------------
+Use less most of the time – it's more powerful, modern, and widely available.
+more is a simpler fallback, available even on older/embedded systems.
+
+Example Use Cases
+----------
+# View system log
+less /var/log/syslog
+
+# View output of command
+ps aux | less
+
+# Search for "error" in a big file
+less logfile.txt
+# then type: /error
+
+
 copying , moving ,deleting files/ Copy Files and Directories in Linux
 ---------------------------------
 cp
