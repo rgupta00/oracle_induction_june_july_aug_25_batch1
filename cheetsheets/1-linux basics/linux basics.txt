@@ -1,5 +1,10 @@
 basics of Linux OS and comman commands
 ----------------------------------------
+
+youtube:
+https://www.youtube.com/watch?v=QH18cZwDOyU&t=2s
+
+
 Agenda: 
 	Linux Operating system
 	Ubuntu commands with AWS vm instance
@@ -13,8 +18,9 @@ https://drive.google.com/drive/folders/1bqczHjQ-20It-lS9GnFLYhjQpmntU4uX?usp=sha
 
 Introduction to Linux essential commands for everyone
 -----------------------------------------------------
+
 What is Linux?
-------------------
+--------------
 	Open source Operating system: 
 	
 	The linux is free to use and everyone have freedom to contributed to its
@@ -511,6 +517,30 @@ Services?
 	of system user as they lacking interface
 	
 systemctl and services
+----------------------
+Both are command-line tools used to manage services (daemons) like apache2,
+ mysql, etc. But they belong to different generations of Linux init systems.
+ 
+ 
+systemctl is better — it's modern, powerful, and the future.
+
+Use service only on older systems or in restricted/containerized environments where systemd isn't available.
+
+systemctl vs service
+---------------------------
+Feature						systemctl								service
+Used With				systemd (modern init system)				SysV init scripts (older systems)
+
+Introduced In			CentOS 7+, Ubuntu 16.04+, Debian 8+			Legacy command (still supported for backward compatibility)
+
+Syntax Example			systemctl start apache2						service apache2 start
+
+Can Manage				Services, targets, timers, 					Only services	
+						mounts, shutdown, etc.	
+						
+Parallelism				Yes (systemd units can run in parallel)		No
+
+Better Logging			Yes (journalctl)							No native logging
 
 systemctl list-unit-files	# list all the servies that run in the background like ssh cron
 systemctl list-unit-files | grep ssh
@@ -539,6 +569,9 @@ systemctl disable apache2
 
 systemctl enable <service>
 systemctl enable apache2
+
+
+service apache2 start
 
 service <service> start
 service <service> stop
@@ -585,6 +618,52 @@ ps -ef | grep -i apache
 
 ps -aux | more	very useful commands display cpu memory usages very similar to taks manager
 
+a: Show processes for all users
+u: Display the user/owner of the process
+x: Include processes not attached to a terminal (like daemons
+
+op:
+-----
+USER       PID  %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1   0.0  0.1  16856  1084 ?        Ss   09:00   0:01 /sbin/init
+raj         123  0.3  1.2 203456 10232 pts/0    Sl   09:01   0:10 /usr/bin/python3 script.py
+
+Explanation of Each Column:
+--------------------------
+Column				Meaning
+
+USER					Username of the process owner
+PID						Process ID (unique identifier)
+%CPU					CPU usage percentage
+%MEM					RAM usage percentage
+VSZ						Virtual memory size (in KB)
+RSS						Resident Set Size – actual physical memory used (in KB)
+TTY						Terminal tied to the process (e.g., pts/0 or ? for none)
+STAT					Process state (like S, R, Z, T, etc.)
+START					Start time/date of the process
+TIME					Total CPU time the process has consumed
+COMMAND					The full command that started the process
+
+🧠 Common STAT Values:
+-------------------------
+Code Meaning
+R	Running
+S	Sleeping (idle)
+D	Waiting (uninterruptible sleep)
+Z	Zombie
+T	Stopped
+X	Dead (shouldn't be seen)
+l	Multithreaded
++	In the foreground process group
+
+To filter processes by a user:
+------------------------
+ps -u raj
+
+To grep a process:
+-------------------
+ps aux | grep apache2
+
 ps -u username	process related to some user
 
 ps -eH	(process tree)
@@ -594,10 +673,16 @@ ps -eH	(process tree)
  
 kill command:
 -----------
- Kill command send signal to a process to terminate, start stop etc
- This can terminalte a process, intrept/ suspend/crash 
- you must own that process
- or login as root user
+	Kill command send signal to a process to terminate, start stop etc
+	This can terminalte a process, intrept/ suspend/crash 
+ 
+	you must own that process or login as root user
+ 
+	The kill command in Linux is used to terminate a running process by sending it a signal.
+
+	Every process in Linux has a unique Process ID (PID).
+	The kill command sends signals to these processes.
+	The default signal is SIGTERM (signal 15), which asks the process to terminate gracefully.
  
  
  example:
@@ -622,10 +707,59 @@ kill command:
 sleep 100 &
 kill -2 pid
 
+Note:
+sleep 100: Pause the shell for 100 seconds
+&: Run the command in the background
+
 kill -1 pid	: restart
 kill -2 pid	: ctrl +C
 kill -9 pid	: kill forcefully
 kill -15 pid	: kill gracefully
+
+real-world use case of the kill command — something a developer, admin might actually encounter.
+-------------------------------------------------------------------------------------------------
+	Use Case: Stopping a Frozen Web Server (e.g., Apache or Node.js)
+
+	You’re running a web server during development (e.g., Apache, Node.js, Python HTTP server), and suddenly:
+	The server freezes or becomes unresponsive
+
+	You try Ctrl+C — but it doesn't stop (maybe it’s running in the background)
+
+You need to manually terminate the process
+--------------------------------------
+1. Find the Process
+
+ps aux | grep node
+
+Sample output:
+raj     10245  0.3  1.2  123456  6543 pts/0  S+   13:02   0:00 node server.js
+10245 is the PID of the Node.js server.
+
+2. Kill the Process
+
+kill 10245
+This sends SIGTERM (graceful stop). If that doesn’t work:
+
+kill -9 10245
+This sends SIGKILL (forceful termination).
+
+Other Real-World Scenarios:
+-------------------------------
+Situation							Kill Usage
+------------------------------------------------
+Stop an infinite loop in a script					Find PID and use kill
+
+Clean up zombie or defunct processes				kill -9 if they don’t exit
+
+Restart services (e.g., Java app, MySQL) manually	kill then start again
+
+Kill a hung GUI app (Linux desktop)					kill -9 <PID> from terminal
+
+Note:
+-----------
+Always try kill (SIGTERM) first.
+Use kill -9 only if the process is truly unresponsive, 
+as it does not allow cleanup (like closing files or saving state).
 
 
 ps -ef |grep -i apache2
@@ -635,34 +769,76 @@ kill -1 pid	restart apache2 server
 top command
 --------------
 	top command display resouces cpu, ram occupied by processes
-	dynamically
-	used to monitor load on machine
-	  
-    
-       PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+
+	dynamically used to monitor load on machine
+	
+	top is a real-time, dynamic monitor for processes. It shows you:
 
-	PID: Shows task’s unique process id.
-	
-	PR: The process’s priority. The lower the number, the higher the priority.
-	
-	VIRT: Total virtual memory used by the task.
-	
-	USER: User name of owner of task.
-	
-	%CPU: Represents the CPU usage.
-	
-	TIME+: CPU Time, the same as ‘TIME’, but reflecting more granularity through hundredths of a second.
-	
-	SHR: Represents the Shared Memory size (kb) used by a task.
-	
-	NI: Represents a Nice Value of task. A Negative nice value implies higher priority,
-	 and positive Nice value means lower priority.
-	 
-	%MEM: Shows the Memory usage of task.
-	
-	RES: How much physical RAM the process is using, measured in kilobytes.
-	
-	COMMAND: The name of the command that started the process.
+		CPU usage
+		Memory usage
+		Process IDs
+		Running/sleeping/zombie processes
+		System uptime and load
+		And much more…
+			  
+    
+	 Why top is Relevant:
+	 ---------------------
+	Purpose										Why it's Useful
+	---------------------------------------------------------------
+	Monitor system performance					See CPU and memory usage instantly
+	Find resource hogs							Identify which process uses most CPU/RAM
+	Detect system slowness						Spot load average spikes
+	Kill unresponsive processes					Press k in top to kill a process
+	Check real-time usage						No need to install extra tools
+
+
+	Window Equivalent: Task Manager
+	Ctrl + Shift + Esc
+
+
+    Output Column Explanation
+------------------------------------------------------------------------------------
+PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+  COMMAND
+
+Column				Full Name			Meaning
+----------------------------------------------------
+PID					Process ID			Unique identifier for the process
+
+USER				User				The user who owns the process
+
+PR					Priority			Scheduling priority (lower = higher priority)
+
+NI					Nice value			Process "niceness" (used to tweak priority)
+
+VIRT				Virtual memory		Total virtual memory used by the process (code + data + shared + swapped)
+
+RES					Resident memory		Actual physical memory (RAM) the process is using (not swapped out)
+
+SHR					Shared memory		Amount of memory shared with other processes (libraries, etc.)
+
+S					State				Process state (R=Running, S=Sleeping, Z=Zombie, T=Stopped, etc.)
+
+%CPU				CPU usage			Percentage of CPU the process is currently using
+
+%MEM				Memory usage		Percentage of RAM the process is using
+
+TIME+				Total CPU time		Total CPU time the process has consumed since start (including all threads)
+
+Example:
+-----------
+1234  apache    20   0   500M   80M   10M  S   5.3   2.1   00:03.22  httpd
+
+	PID: 1234 (Process ID)
+	USER: apache (runs as user)
+	PR: 20 (default priority)
+	NI: 0 (nice value)
+	VIRT: 500 MB total virtual memory
+	RES: 80 MB of physical memory in use
+	SHR: 10 MB is shared
+	S: Sleeping
+	%CPU: Using 5.3% of one CPU
+	%MEM: Using 2.1% of total memory
+	TIME+: Has used 3.22 seconds of CPU time
 
 
 nice command
@@ -675,15 +851,76 @@ nice command
 		 	highest	lowest
 		 	
 
-	Ex
+	Ex: experimenting with process priority and monitoring in Linux. 
+	-----------------------------------------------------------------------
 	sleep 400 &
 	 ps -eo pid,euser,stat,pcpu,pmem,ni,command
 	 ps -eo pid,euser,stat,pcpu,pmem,ni,command | grep -i sleep
+	 
 	 renice -15 5332
+	 
+	 renice -n 10 <pid>
 	 
 	renice	-15 -u raj	it will change priority of raj user
 				only superuser can increse priority
 				
+
+
+	line-by-line explanation of each command :
+	-----------------------------------------
+	sleep 400 &
+	------------------
+		This runs the sleep command in the background for 400 seconds.
+		It starts a process that simply "sleeps" (does nothing) for 400 seconds.
+		& puts it in the background, returning control to the terminal immediately.
+
+ps -eo pid,euser,stat,pcpu,pmem,ni,command
+-----------------------------------
+	ps: Shows running processes.
+	-e: All processes.
+	-o: Custom output format.
+
+	Fields:
+	pid: Process ID.
+	euser: Effective user (who started the process).
+	stat: Process state (e.g., S=sleeping, R=running, etc.).
+	pcpu: % CPU usage.
+	pmem: % Memory usage.
+	ni: Nice value (priority).
+	command: Full command that started the process.
+
+	Shows a filtered view of all processes with useful details.
+
+ps -eo pid,euser,stat,pcpu,pmem,ni,command | grep -i sleep
+--------------------------------------------------------------
+	Pipes the ps output to grep to filter processes containing "sleep" (case-insensitive -i).
+	Helps find the sleep 400 process started earlier.
+
+renice -15 5332
+------------------
+	Changes the nice value (priority) of process with PID 5332 to -15.
+	Lower nice value = higher priority.
+
+	-20 is highest priority; 19 is lowest.
+
+	Note : Only root/superuser can decrease nice value (increase priority).
+	-------------------------------------------------------
+	If a regular user tries to set a negative nice value, it will fail:
+
+	renice: failed to set priority for 5332 (process ID): Permission denied
+
+	renice -15 -u raj
+	------------------------
+	Changes all processes owned by user raj to nice value -15.
+	Again, only root can do this since it's increasing priority (making nice value more negative).
+
+	Summary Note:
+	---------------
+	Only superusers (root) can increase process priority (i.e., reduce nice value below 0).
+	Regular users can only lower priority (increase nice value, e.g., from 0 to 5 or 10).
+		
+	
+
 
 
 
@@ -691,6 +928,93 @@ nice command
 
 user mangement and permissions
 ----------------------------
+
+User Management in Linux – Short Notes
+--------------------------------------------
+
+1.Types of Users
+----------------------
+	Root: Superuser (UID 0), full control.
+	Regular User: Created for each human user.
+	System/User Accounts: Used by system services (UID < 1000 on most distros).
+
+2.User Configuration Files
+---------------------------
+File					Description
+/etc/passwd				User info (username, UID, GID, home, shell)
+/etc/shadow				Encrypted user passwords
+/etc/group	G			group information
+/etc/login.defs			Default user creation settings
+
+3.User & Group Management Commands
+-----------------------------------
+Command						Purpose
+-----------------------------------------
+adduser <username>			Add a new user (Debian-based)
+useradd <username>			Add user (requires manual setup)
+passwd <username>			Set/change user password
+usermod	Modify user 		info (e.g., shell, group)
+deluser <username>			elete a user
+groupadd <groupname>		Create a new group
+gpasswd -a <user> <group>	Add user to a group
+groups <username>			List user's groups
+
+
+🛡File Permissions in Linux
+------------------------------
+1. Permission Types
+-----------------------
+	r (read): View file contents/list directory
+	w (write): Modify file/create/delete inside directory
+	x (execute): Run file/enter directory
+
+2. Permission Categories
+---------------------
+Category	Who it Applies to
+u			user (owner)
+g			group
+o			others
+a			all (u+g+o)
+
+3. Viewing Permissions
+----------------------
+ls -l
+
+Example:
+-rwxr-xr-- 1 raj raj 1234 Jun 27 06:30 script.sh
+Breakdown:
+
+- : File type
+
+rwx : owner (raj) → read, write, execute
+r-x : group (raj) → read, execute
+r-- : others → read only
+
+4. Changing Permissions
+---------------------
+Command					Purpose
+chmod u+x file			Add execute permission for user
+chmod 755 file			rwxr-xr-x (owner: all, group/others: rx)
+chown user:group file	Change ownership
+chgrp group file		Change group
+
+5. Numeric Permission System
+------------------------
+Value	Permission
+7		rwx
+6		rw-
+5		r-x
+4		r--
+0		---
+
+So chmod 755 file means:
+----------------------
+	Owner: 7 (rwx)
+	Group: 5 (r-x)
+	Others: 5 (r-x)
+
+
+
 	user information is store in /etc/passwd
 	
 	cat /etc/passwd
@@ -795,6 +1119,9 @@ usermod -aG dev kesh
 groupadd tester	# creating tester group
 usermod -aG tester ekta	# add ekta to the tester group
 usermod -aG tester vicky
+
+-aG = append to group list (-a is mandatory to avoid overwriting other groups).
+
 
 
 Now use id command to check group of an user

@@ -1,0 +1,830 @@
+Installation: How to support XML on STS4
+---------------------------------
+Step 1: Install XML Editors and Tools (if not present)
+STS 4 no longer bundles the full XML tooling by default, so install them manually:
+Go to: Help ? Eclipse Marketplace
+Search for: Eclipse Web Tools Platform (WTP)
+Install:
+Eclipse XML Editors and Tools
+Optionally: Eclipse Web Developer Tools (for full WTP experience)
+Restart STS
+
+
+
+XML & XML Processing
+=============================
+	# XML basics, DTD, valid xml
+	# NameSpace 
+	# xml Schema
+	# DOM
+	# SAX
+	# JSON
+	#JAXB(Java Architecture for XML Binding)
+
+=============================
+XML basics, DTD, valid xml
+==============================
+
+	Ex:
+	<name>
+		<first id="2">ravi</first>
+		<middle>kumar</middle>
+		<last>gupta</last>
+	</name>
+
+
+	Ex:
+
+	<?xml version="1.0" encoding="utf-8"?>
+	<people>
+		<husband>
+			<name>raja</name>
+			<age>33</age>
+			<employed >yes</employed>
+		</husband>
+	
+		<husband employed="no">
+			<name>amit</name>
+			<age>23</age>
+		<employeed >yes</employeed>
+		</husband>
+		<wife>
+			<name>foo</name>
+			<age>30</age>
+		</wife>
+	
+		<wife>
+			<name>bar</name>
+			<age>22</age>
+		</wife>
+	</people>
+
+
+	<?xml version="1.0" encoding="UTF-8"?>
+
+	<name nickname="Shiny John">
+		<first>John</first>
+			<!--John lost his middle name in a fire-->
+		<middle/>
+		<last>Doe</last>
+		</name>
+
+
+
+	Entity Reference
+	-------------------
+
+		<comparison>6 is &lt; 7 &amp; 7 &gt; 6 </comparison>
+
+	&amp;	the & character
+	&lt;	the < character 
+	&gt; 	the > character
+	&apos;	the  character
+	&quot;	the  character
+
+	
+	
+
+
+	CDATA Ex;
+	-------------
+
+
+	<comparison><![CDATA[6 is < 7 & 7 > 6]]></comparison>
+
+	Ex:
+	<script language="JavaScript"><![CDATA[
+		function myFunc()
+		{
+			if(0 < 1 && 1 < 2)
+			alert("Hello");
+		}
+	]]></script>
+
+
+
+
+
+
+
+
+	DTD
+	====
+
+
+	note.dtd
+	-----------
+	<!ELEMENT note (to,from?,heading,body)>
+	<!ELEMENT to (#PCDATA)>
+	<!ELEMENT from (#PCDATA)>
+	<!ELEMENT heading (#PCDATA)>
+	<!ELEMENT body (#PCDATA)>
+
+
+	note.xml
+	--------
+
+	<?xml version="1.0"?>
+	<!DOCTYPE note SYSTEM "note.dtd">
+	<note>
+ 	 <to>Bar</to>
+ 		 <heading>Reminder</heading>
+  		<body>Don't forget me this weekend!</body>
+	</note>
+
+
+
+
+	Another example:
+
+	people.dtd
+	------------
+	<!ELEMENT people (husband)*>
+	<!ELEMENT husband (name, age, wife)>
+	<!ELEMENT name (#PCDATA)*>
+	<!ELEMENT age (#PCDATA)*>
+	<!ELEMENT wife (wname,age)*>
+	<!ELEMENT wname (#PCDATA)*>
+
+
+
+
+	people.xml
+	------------
+
+	<?xml version="1.0" encoding="utf-8"?>
+	<!DOCTYPE people SYSTEM "people.dtd">
+	<people>
+	<husband>
+		<name>mark</name>
+		<age>45</age>
+		<wife>
+			<wname>leena</wname>
+			<age>43</age>
+		</wife>
+	</husband>
+	
+	<husband>
+		<name>matt</name>
+		<age>55</age>
+		<wife>
+			<wname>anne</wname>
+			<age>45</age>
+		</wife>
+	</husband>	
+	</people>
+
+
+	Example:
+
+	<!ATTLIST contact person ID #REQUIRED>
+
+	In the document you could add the unique ID:
+		<contact person="Jeff_Rafter">
+
+	Example: 
+		<!ATTLIST phone kind (Home | Work | Cell | Fax) #REQUIRED>
+
+		==> It indicates that the kind attribute must appear within every
+			<phone> element in the document. 
+
+		==> If the parser encounters a <phone> element without a kind attribute
+			as it is processing the document, it raises an error
+
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE people SYSTEM "people.dtd">
+<people>
+	<husband employeed = "no" payment= "banktransfer">
+		<name>amit</name>
+		<age>50</age>
+		<wife>
+			<wname>sunita</wname>
+			<age>47</age>
+		</wife>
+	</husband>
+	
+	<husband employeed = "no">
+		<name>gagan</name>
+		<age>30</age>
+		<wife>
+			<wname>seema</wname>
+			<age>27</age>
+		</wife>
+	</husband>
+	
+	
+</people>
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT people (husband)*>
+<!ELEMENT husband (name, age, wife)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT age (#PCDATA)>
+<!ELEMENT wife (wname,age)>
+<!ELEMENT wname (#PCDATA)>
+<!ATTLIST husband employeed CDATA "yes">
+<!ATTLIST husband payment (banktransfer|cash) "cash">
+
+
+
+
+Schema in XML
+=================
+what is the problem with dtd why schema is required in xml?
+
+XML is used to store and transport data.
+ To ensure data consistency and structure, we need validation rules — like:
+
+	What elements and attributes are allowed?
+	What order and data types are valid?
+	What values are acceptable?
+
+This is where DTD and XML Schema (XSD) come in. 
+
+They are validators or blueprints for XML documents.
+
+Problems with DTD (Document Type Definition):
+---------------------------------------
+Limitation											Explanation
+1. No support for data types					DTD only understands text (#PCDATA) 
+												or ID-like types — you can't say
+												“age must be an integer between 1 and 100”.
+													
+2. No namespace support							DTD can't handle XML namespaces, 
+												which are essential for modular and reusable XML.
+												
+3. Limited content models						DTD is not expressive enough to define complex 
+												nested structures or strict sequences.
+												
+4. Not XML-based itself							DTD syntax is not written in XML — 
+												this breaks the principle of self-descriptive 
+												and parseable documents.
+												
+5. Weak attribute constraints					You can't specify string lengths, patterns (e.g., email regex), 
+												or required number ranges for attributes.
+												
+6. No object-oriented features				DTD doesn’t support reusable components or 
+												inheritance-like mechanisms.
+
+? Why XML Schema (XSD) is Better:
+------------------------
+Feature								Explanation
+1. Supports data types				You can define elements as xs:string, xs:int, xs:date, etc.,
+									and even restrict values using facets (minInclusive, pattern, etc.).
+									
+2. Namespace-aware					XSD supports XML namespaces, making it fit for modern,
+									large-scale, modular applications.
+									
+3. Written in XML					Schema itself is XML — which means tools can parse and manipulate it easily.
+
+4. Complex types and nesting		You can define deeply nested structures with mixed content,
+									sequences, choices, etc.
+									
+5. Attribute & element control		You can control default/fixed values, 
+									occurrence constraints (minOccurs, maxOccurs), optional vs required, etc.
+									
+6. Reusability						XSD supports complex types and extension/restriction
+									— similar to class inheritance.
+
+Analogy:
+	Think of DTD as a simple notebook with yes/no checkboxes — limited and outdated.
+	But XML Schema is like a form with dropdowns, validations, tooltips, and dependencies 
+		— it’s smarter, structured, and modern.
+
+
+XML Namespaces
+===============
+	
+	
+	problem without namespace:
+	--------------------------
+
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<person>
+	<name>
+		<title>Sir</title>
+		<first>John</first>
+		<middle>Fitzgerald Johansen</middle>
+		<last>Doe</last>
+	</name>
+
+	<position>Vice President of Marketing</position>
+	<resume>
+		<html>
+			<head>
+				<title>Resume of John Doe</title>
+			</head>
+			<body>
+				<h1>John Doe</h1>
+				<p>John’s a great guy, you know?</p>
+			</body>
+		</html>
+	</resume>
+
+
+
+	Two <title> tags represent different sementics?
+	----------------------------------------------
+
+	Approach 1: Using prefix
+	
+	<?xml version="1.0" encoding="UTF-8"?>
+	<pers:person>
+	<pers:name>
+		<pers:title>Sir</pers:title>
+		<pers:first>John</pers:first>
+		<pers:middle>Fitzgerald Johansen</pers:middle>
+		<pers:last>Doe</pers:last>
+	</pers:name>
+	<pers:position>Vice President of Marketing</pers:position>
+	<pers:resume>
+		<xhtml:html>
+			<xhtml:head>
+				<xhtml:title>Resume of John Doe</xhtml:title>
+			</xhtml:head>
+			<xhtml:body>
+				<xhtml:h1>John Doe</xhtml:h1>
+				<xhtml:p>John's a great guy, you know?</xhtml:p>
+			</xhtml:body>
+		</xhtml:html>
+	</pers:resume>
+	</pers:person>
+
+
+
+
+
+
+
+
+
+	How actually namespace specified?
+	----------------------
+
+	
+		<pers:person xmlns:pers="http://www.wiley.com/pers">
+		<pers:name>
+		<pers:title>Sir</pers:title>
+		</pers:name>
+		</pers:person>
+
+
+	Example:
+	
+	<?xml version="1.0"?>
+	<pers:person xmlns:pers="http://www.wiley.com/pers"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<pers:name>
+		<pers:title>Sir</pers:title>
+		<pers:first>John</pers:first>
+		<pers:middle>Fitzgerald Johansen</pers:middle>
+		<pers:last>Doe</pers:last>
+	</pers:name>
+	<pers:position>Vice President of Marketing</pers:position>
+	<pers:résumé>
+		<html:html>
+			<html:head>
+				<html:title>Resume of John Doe</html:title>
+			</html:head>
+			<html:body>
+				<html:h1>John Doe</html:h1>
+				<html:p>John's a great guy, you know?</html:p>
+			</html:body>
+		</html:html>
+	</pers:résumé>
+	</pers:person>
+
+
+
+	Default namespace
+	----------------------
+
+	<person xmlns="http://www.wiley.com/pers"
+		xmlns:html="http://www.w3.org/1999/xhtml">
+	<name>
+		<title>Sir</title>
+		<first>John</first>
+		<middle>Fitzgerald Johansen</middle>
+		<last>Doe</last>
+	</name>
+
+	
+
+
+	xml Schema
+	============
+
+	Example: name.xsd
+	-------------------
+
+	<?xml version="1.0"?>
+	<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:target="http://www.example.com/name" 
+	targetNamespace="http://www.example.com/name" 
+	elementFormDefault="qualified">
+	<element name="name">
+		<complexType>
+			<sequence>
+				<element name="first" type="string"/>
+				<element name="middle" type="string"/>
+				<element name="last" type="string"/>
+			</sequence>
+			<attribute name="title" type="string"/>
+		</complexType>
+	</element>
+	</schema>
+
+
+	name.xml
+	--------
+
+	<?xml version="1.0"?>
+	<name
+	xmlns="http://www.example.com/name"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.com/name name.xsd"
+	title="Mr.">
+	<first>John</first>
+	<middle>Fitzgerald Johansen</middle>
+	<last>Doe</last>
+	</name>
+
+
+	//Refer more for w3c
+
+
+
+	DOM
+	=======
+
+
+	Creating XML using DOM processing:
+	-----------------------------------
+
+
+	DocumentBuilderFactory factory=DocumentBuilderFactory.newInstance();
+		
+		DocumentBuilder builder=factory.newDocumentBuilder();
+		
+		Document document=builder.newDocument();
+		
+		//Creating elements
+		Element rootEle=document.createElement("students");
+		Element studentEle=document.createElement("student");
+		Element nameEle=document.createElement("name");
+		Element emailEle=document.createElement("email");
+		Element mobileEle=document.createElement("mobile");
+		Element addressEle=document.createElement("address");
+		//Creating text infomration to store
+		Text t1=document.createTextNode("raja");
+		Text t2=document.createTextNode("raja@raja.com");
+		Text t3=document.createTextNode("434343434");
+		Text t4=document.createTextNode("noida");
+		
+		nameEle.appendChild(t1);
+		emailEle.appendChild(t1);
+		mobileEle.appendChild(t1);
+		addressEle.appendChild(t1);
+		
+		studentEle.appendChild(nameEle);
+		studentEle.appendChild(emailEle);
+		studentEle.appendChild(mobileEle);
+		studentEle.appendChild(addressEle);
+		
+		
+		
+		rootEle.appendChild(studentEle);
+		document.appendChild(rootEle);
+		Transformer t=TransformerFactory.newInstance().newTransformer();
+		
+		
+		t.transform(new DOMSource(document), new StreamResult(new FileOutputStream("c:/raj/students.xml")));
+		
+		System.out.println("xml file generated...");
+
+	
+
+
+
+
+
+
+
+
+	Example:Reading XML file back using DOM
+	-------------------------------------------------
+
+
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		Document doc = dBuilder.parse("staff.xml");
+		//give me root
+		System.out.println(doc.getDocumentElement().getNodeName());
+		 
+		System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+	 
+		NodeList nList = doc.getElementsByTagName("staff");
+	 
+		System.out.println("----------------------------");
+	 
+		for (int temp = 0; temp < nList.getLength(); temp++) {
+	 
+			Node nNode = nList.item(temp);
+	 
+			System.out.println("\nCurrent Element :" + nNode.getNodeName());
+	 
+			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+	 
+				Element eElement = (Element) nNode;
+	 
+				System.out.println("Staff id : " + eElement.getAttribute("id"));
+				System.out.println("First Name : " + eElement.getElementsByTagName("firstname").item(0).getTextContent());
+				System.out.println("Last Name : " + eElement.getElementsByTagName("lastname").item(0).getTextContent());
+				System.out.println("Nick Name : " + eElement.getElementsByTagName("nickname").item(0).getTextContent());
+				System.out.println("Salary : " + eElement.getElementsByTagName("salary").item(0).getTextContent());
+			}
+		}
+
+
+	staff.xml
+
+
+	<company>
+	<staff id="1001">
+		<firstname>yong</firstname>
+		<lastname>mook kim</lastname>
+		<nickname>mkyong</nickname>
+		<salary>100000</salary>
+	</staff>
+	<staff id="2001">
+		<firstname>low</firstname>
+		<lastname>yin fong</lastname>
+		<nickname>fong fong</nickname>
+		<salary>200000</salary>
+	</staff>
+	</company>
+
+
+
+	Refer:
+	http://www.mkyong.com/java/how-to-modify-xml-file-in-java-dom-parser/
+
+
+
+
+
+
+
+
+	Hello World SAX
+	================
+
+
+
+	XMLReader reader=XMLReaderFactory.createXMLReader();
+	reader.setContentHandler(new EmployeeHandler());
+	reader.parse("company.xml");
+
+
+
+
+	public class EmployeeHandler extends DefaultHandler {
+
+	@Override
+	public void characters(char[] ch, int start, int length)throws SAXException {
+		for(int i=start; i<(start+length);i++){
+			System.out.print(ch[i]);
+		}
+	}
+
+	@Override
+	public void endDocument() throws SAXException {
+		System.out.println("finishing processing xml doc");
+	}
+
+	@Override
+	public void endElement(String uri, String localName, String qName)throws SAXException {
+		System.out.print("</"+qName+ ">");
+		
+	}
+
+	@Override
+	public void startDocument() throws SAXException {
+		System.out.println("Starting processing xml doc");
+	}
+
+	@Override
+	public void startElement(String uri, String localName, String qName,Attributes attributes) throws SAXException {
+		System.out.print("<"+qName+ ">");
+	}
+
+	
+	}
+
+
+
+	company.xml
+	------------
+
+	<?xml version="1.0"?>
+	<company>
+	<staff id="1001">
+		<firstname>yong</firstname>
+		<lastname>mook kim</lastname>
+		<nickname>mkyong</nickname>
+		<salary>100000</salary>
+	</staff>
+	<staff id="2001">
+		<firstname>low</firstname>
+		<lastname>yin fong</lastname>
+		<nickname>fong fong</nickname>
+		<salary>200000</salary>
+	</staff>
+	</company>
+
+
+	Example:
+	http://www.mkyong.com/java/how-to-read-xml-file-in-java-sax-parser/	
+	http://www.journaldev.com/1198/java-sax-parser-example-tutorial-to-parse-xml-to-list-of-objects
+
+
+
+
+
+
+
+	Hello World JAXB
+	=================
+
+	http://howtodoinjava.com/2013/07/30/jaxb-exmaple-marshalling-and-unmarshalling-list-or-set-of-objects/
+
+
+
+	Hello World JSON
+	=================
+	http://www.journaldev.com/2315/java-json-processing-api-example-tutorial
+
+
+
+
+
+
+
+
+
+JAXB with spring*
+=============================================
+	JAXB
+============================================
+
+	Why JAXB?
+	---------
+
+	=> JAXB allows Java developers to map Java classes to XML representations
+
+	=> JAXB provides two main features: 
+		-> the ability to marshal Java objects into XML and the inverse,
+		 i.e. to unmarshal XML back into Java objects. 
+
+		-> JAXB mostly is used while implementing webservices or any other such client 
+		interface for an application where data needs to be transferred in XML format instead of
+		 HTML format
+
+
+
+
+`	Hello World:
+	-------------
+
+	<dependency>
+    		<groupId>com.sun.xml.bind</groupId>
+    		<artifactId>jaxb-core</artifactId>
+    		<version>2.2.8-b01</version>
+	</dependency>
+
+	<dependency>
+   		 <groupId>com.sun.xml.bind</groupId>
+    		<artifactId>jaxb-impl</artifactId>
+    		<version>2.2-promoted-b65</version>
+	</dependency>
+
+
+	Model classes:
+	--------------
+
+@XmlRootElement(name = "employee")
+@XmlAccessorType (XmlAccessType.FIELD)
+public class Employee 
+{
+    private Integer id;
+    private String firstName;
+    private String lastName;
+    private double income;
+
+
+
+
+@XmlRootElement(name = "employees")
+@XmlAccessorType (XmlAccessType.FIELD)
+public class Employees 
+{
+    @XmlElement(name = "employee")
+    private List<Employee> employees = null;
+ 
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+ 
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+}
+
+//hibernate/spring private 
+
+
+Marshling:
+------------
+
+//Initialize the employees list
+static Employees employees = new Employees();
+static
+{
+    employees.setEmployees(new ArrayList<Employee>());
+    //Create two employees 
+    Employee emp1 = new Employee();
+    emp1.setId(1);
+    emp1.setFirstName("Lokesh");
+    emp1.setLastName("Gupta");
+    emp1.setIncome(100.0);
+     
+    Employee emp2 = new Employee();
+    emp2.setId(2);
+    emp2.setFirstName("John");
+    emp2.setLastName("Mclane");
+    emp2.setIncome(200.0);
+     
+    //Add the employees in list
+    employees.getEmployees().add(emp1);
+    employees.getEmployees().add(emp2);
+}
+private static void marshalingExample() throws JAXBException
+{
+    JAXBContext jaxbContext = JAXBContext.newInstance(Employees.class);
+    Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+ 
+    jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+     
+    //Marshal the employees list in console
+    jaxbMarshaller.marshal(employees, System.out);
+     
+    //Marshal the employees list in file
+    jaxbMarshaller.marshal(employees, new File("c:/temp/employees.xml"));
+}
+
+
+
+
+Unmarshalling example
+------------------------
+
+private static void unMarshalingExample() throws JAXBException 
+{
+    JAXBContext jaxbContext = JAXBContext.newInstance(Employees.class);
+    Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+     
+    //We had written this file in marshalling example
+    Employees emps = (Employees) jaxbUnmarshaller.unmarshal( new File("c:/temp/employees.xml") );
+     
+    for(Employee emp : emps.getEmployees())
+    {
+        System.out.println(emp.getId());
+        System.out.println(emp.getFirstName());
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+discussion on xml processing
+--------------------------
+http://howtodoinjava.com/2013/07/30/jaxb-exmaple-marshalling-and-unmarshalling-list-or-set-of-objects/
+
+http://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
+
+http://www.mkyong.com/java/how-to-read-xml-file-in-java-sax-parser/
