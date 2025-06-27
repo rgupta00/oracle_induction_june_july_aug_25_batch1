@@ -12,11 +12,13 @@ https://www.youtube.com/watch?v=NZB3Iy7Lve4
 
 steps:
 ----------------------------------------
+https://download.oracle.com/java/17/archive/jdk-17.0.12_linux-x64_bin.tar.gz
+
 1. download jdk and go to download folder
  cd ~/Downloads
 
 2. unzip tar to download
- tar -zxvf jdkxxxx
+ tar -zxvf jdk-17.0.12_linux-x64_bin.tar.gz
 
 3. now move extracted jdkxxxxx folder to /usr/lib
 
@@ -34,6 +36,7 @@ steps:
 sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/java/jdk1.8.0_111/bin/java" 1
 sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/java/jdk1.8.0_111/bin/javac" 1
 sudo update-alternatives --install "/usr/bin/javaws" "javaws" "/usr/lib/java/jdk1.8.0_111/bin/javaws" 1
+
 https://www.youtube.com/watch?v=neINFNekWeI
 
 
