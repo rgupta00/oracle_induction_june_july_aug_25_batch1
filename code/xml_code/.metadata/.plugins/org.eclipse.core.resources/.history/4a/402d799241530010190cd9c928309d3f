@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.oracle.com/orders"
+	xmlns:tns="http://www.oracle.com/orders" 
+	elementFormDefault="qualified">
+	
+	
+	
+</schema>

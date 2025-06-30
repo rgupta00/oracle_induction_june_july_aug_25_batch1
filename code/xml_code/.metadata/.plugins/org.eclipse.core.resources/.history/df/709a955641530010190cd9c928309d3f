@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.oracle.com/orders"
+	xmlns:tns="http://www.oracle.com/orders" elementFormDefault="unqualified">
+
+    <element name="order" type="tns:orderType"></element>
+
+	<complexType name="orderType">
+		<sequence>
+			<element name="orderId" type="string" maxOccurs="1"
+				minOccurs="1"></element>
+			<element name="customerId" type="string" maxOccurs="1"
+				minOccurs="1"></element>
+			<element name="orderItem" type="tns:OrderItemType"></element>
+		</sequence>
+	</complexType>
+
+    <complexType name="OrderItemType">
+    	<sequence>
+    		<element name="itemId" type="int" maxOccurs="1" minOccurs="1"></element>
+    		<element name="itemName" type="string" maxOccurs="1" minOccurs="1"></element>
+    		<element name="quantity" type="int" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+</schema>

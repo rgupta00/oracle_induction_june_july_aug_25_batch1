@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<emploees>
+	<employee>
+		<id>121</id>
+		<name>raja</name>
+		<salary>45000</salary1>
+	</employee>
+	
+	<employee>
+		<id>34</id>
+		<name>amit</name>
+		<salary>45000</salary>
+	</employee>
+	
+	<employee>
+		<id>901</id>
+		<name>ekta</name>
+		<salary>49000</salary>
+	</employee>
+</emploees>

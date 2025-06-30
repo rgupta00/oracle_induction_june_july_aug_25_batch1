@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <script language="JavaScript">
+   <![CDATA[
+		function myFunc()
+		{
+			if(0 < 1 && 1 < 2)
+			alert("Hello");
+		}
+	]]>
+</script>

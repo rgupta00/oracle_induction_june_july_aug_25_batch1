@@ -1,0 +1,46 @@
+package com.demo;
+
+public class DateProblem {
+
+	public static void main(String[] args) {
+		// 27-6-2025
+		// 31-12-2025
+		//
+		// 1. take care about leap
+		// 2. how many day in every month
+		// 3. logic of next day
+
+		int dd, mm,yy;
+		dd=31;
+		mm=12;
+		yy=2025;
+		System.out.println(dd +"/"+ mm+" /"+yy);
+
+	}
+
+	public int getNoOfDaysInGivenMethod(int month) {
+
+		int daysInMonth[] = { -1, 31, // January
+				28, // February
+				31, // March
+				30, // April
+				31, // May
+				30, // June
+				31, // July
+				31, // August
+				30, // September
+				31, // October
+				30, // November
+				31 // December
+		};
+		return daysInMonth[month];
+	}
+
+	public static boolean isLeapYear(int year) {
+		if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+			return true;
+		else
+			return false;
+
+	}
+}

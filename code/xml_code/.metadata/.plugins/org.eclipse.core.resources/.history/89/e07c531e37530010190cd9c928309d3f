@@ -1,0 +1,2 @@
+<!ELEMENT people (husband)*>
+<!ELEMENT husband (name, age, wife)>

@@ -1,0 +1,19 @@
+package com.demo;
+class Employee{
+	//C++ vs java (default)
+	private int id;
+	private String name;
+	
+	public Employee(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+	
+	public void print() {
+		System.out.println(" id : "+ id +" name: "+ name);
+	}
+	
+}
+public class DemoEmployee {
+
+}

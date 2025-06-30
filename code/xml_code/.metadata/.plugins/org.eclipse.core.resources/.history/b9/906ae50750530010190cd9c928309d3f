@@ -1,0 +1,15 @@
+package com.demo;
+
+public class DateProblem {
+
+	public static void main(String[] args) {
+		// 27-6-2025
+		//31-12-2025
+		//
+		//1. take care about leap
+		//2. how many day in every month
+		//3. logic of next day
+		
+		
+	}
+}

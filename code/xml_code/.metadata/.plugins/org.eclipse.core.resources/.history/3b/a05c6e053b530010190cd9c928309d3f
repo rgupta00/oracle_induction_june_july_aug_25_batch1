@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:name xmlns:tns="http://www.oracle.com/note"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.oracle.com/note note.xsd ">
+	<first>123</first>
+	<middle>middle</middle>
+	<last>last</last>
+	<title>title</title>
+</tns:name>

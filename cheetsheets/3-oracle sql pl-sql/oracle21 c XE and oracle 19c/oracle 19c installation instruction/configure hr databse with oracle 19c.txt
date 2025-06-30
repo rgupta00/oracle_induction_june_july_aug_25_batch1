@@ -1,0 +1,84 @@
+How to login to sql plus:
+========================
+sqlplus / as sysdba
+enter password: admin ( that u have provided while installation of oracle 19c)
+
+now u get sql prompt, test by creating table its working
+
+but we will use sql developer to connect to oracle 19c
+ 
+
+How to configure hr database in oracle 19c
+=========================================
+
+Step 1: open cmd as administrator
+----------------------------------
+"C:\orasoft\bin\sqlplus.exe" sys as sysdba
+Then enter your SYS password.
+admin 
+
+Step 2: Then execute:
+---------------------
+@C:\orasoft\demo\schema\human_resources\hr_main.sql
+
+in case:
+------------
+If @? is working, you can simply run:
+@?/demo/schema/human_resources/hr_main.sql
+
+
+You’ll be prompted for:
+-----------------------
+HR password → hr
+Default tablespace → users
+Temporary tablespace → temp
+
+Log directory → make sure something like this exists:
+
+C:\oracledb\oradata\ORCL\
+
+Step 3: Unlock HR User
+-----------------------
+After script runs successfully:
+
+
+ALTER USER hr IDENTIFIED BY hr ACCOUNT UNLOCK;
+
+Step 4: Connect to HR
+
+CONNECT hr/hr
+
+Check tables:
+
+SELECT * FROM employees;
+
+Now connect hr databse with sql developer ide
+------------------------------------------
+
+1: Open SQL Developer
+---------------------
+Launch SQL Developer from the Start menu
+Click the green + icon or go to:
+File → New → Database Connection
+
+2: Fill the Connection Details
+------------------------
+Field				Value
+--------------------
+Connection Name		HR_orcl (any name you like)
+Username			hr
+Password			hr (or whatever you set)
+Save Password		✅ (optional)
+Connection Type		Basic
+Role				Default
+
+Now fill in the network info:
+-------------------------
+If you're using Oracle 19c default (non-CDB):
+
+Field		Value
+--------------------
+Hostname	localhost
+Port		1521
+SID			orcl
+Service Name	leave empty if using SID

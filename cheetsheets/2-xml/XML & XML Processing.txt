@@ -1,5 +1,5 @@
 Installation: How to support XML on STS4
----------------------------------
+---------------------------------------------
 Step 1: Install XML Editors and Tools (if not present)
 STS 4 no longer bundles the full XML tooling by default, so install them manually:
 Go to: Help ? Eclipse Marketplace
@@ -24,6 +24,46 @@ XML & XML Processing
 =============================
 XML basics, DTD, valid xml
 ==============================
+xml : sytex
+	  symentic
+10: well formed xml
+
+12: validity of xml
+	just like adding contracts to the xml
+	as we do in db table
+	
+	* DTD: older and not very efficient way to validate the data
+			u can not apply restruction to the data types
+			it do not support namespace
+			
+		
+	* Schema
+	
+STL : collection 
+
+
+class OrderItem{
+		itemId
+		itemName
+		quantity
+		
+		....
+}
+	
+	
+class Order{
+	List<OrderItem> list =new ArrayList<OrderItem>();
+
+}
+
+	
+	
+	
+<A>
+
+</B>
+
+
 
 	Ex:
 	<name>
@@ -457,6 +497,128 @@ XML Namespaces
 
 
 	//Refer more for w3c
+
+
+
+XSL
+====
+What is XSLT?
+--------------
+	XSLT stands for eXtensible Stylesheet Language Transformations.
+	It is a language used to transform XML documents into other formats such as:
+
+	HTML (for web browsers)
+	Plain text
+	Another XML document
+
+It is part of the XSL (Extensible Stylesheet Language) family which includes:
+	XSLT – for transformation
+	XPath – for navigating XML nodes
+
+
+How XSLT Works (in simple terms):
+	You write an XSLT file (with .xsl extension) that:
+	Selects parts of the XML (using XPath)
+	Defines templates for how to transform/display them
+	It reads XML input and generates output (like HTML).
+
+Where is XSLT Used?
+--------------------
+Use Case						Explanation
+-----------------------------------------------
+Web presentation of XML			Convert XML data to HTML pages (viewable in browsers)
+Report generation				Transform XML into styled HTML or PDF using XSL-FO
+Data conversion					Convert one XML format to another (used in legacy systems or integration)
+Testing XML 					content	Easily test and visualize XML without writing a program
+Enterprise Integration			Middleware tools use XSLT for mapping data between systems
+
+
+Suppose you get an XML from a server like:
+---------------------------------
+<student>
+  <name>Rajeev</name>
+  <course>Java</course>
+</student>
+
+You can use XSLT to display it in a browser as a neat HTML table without writing backend code.
+
+
+Is XSLT Obsolete Today?
+-----------------------
+Not entirely obsolete, but yes — largely replaced in modern web development by:
+	JSON + JavaScript (AJAX, React, Angular, etc.)
+	Server-side templates (Thymeleaf, JSP, Freemarker)
+	API-based rendering, where transformation logic sits in frontend/backend code (not XSLT)
+
+But still used in:
+--------------------
+	Enterprise systems (e.g., SAP, Oracle apps)
+	Middleware tools (e.g., IBM WebSphere, MuleSoft)
+	Document processing pipelines (like DocBook, e-publishing)
+	XML-based data interchange systems in government/banking
+
+
+
+
+What is XPath?
+======================
+online tools
+-------------
+https://www.easycodeforall.com/XPathUtility.jsp
+https://xpather.com/
+
+
+	XPath stands for XML Path Language.
+	It is used to navigate through elements and attributes in an XML document.
+
+	Think of it like giving directions to find specific data inside an XML file.
+
+
+Let's learn XPath in XML example:
+----------------------------------
+bookstore.xml
+-------------
+
+<bookstore>
+  <book category="cooking">
+    <title lang="en">Everyday Italian</title>
+    <author>Giada De Laurentiis</author>
+    <year>2005</year>
+    <price>30.00</price>
+  </book>
+  <book category="children">
+    <title lang="en">Harry Potter</title>
+    <author>J K. Rowling</author>
+    <year>2005</year>
+    <price>29.99</price>
+  </book>
+</bookstore>
+
+
+XPath Expressions with Explanation
+---------------------------------
+XPath Expression					What It Selects					Result
+--------------------------------------------------------------------------
+/bookstore							Root element <bookstore>		Full node
+/bookstore/book						All <book> nodes				2 books
+/bookstore/book[1]					First <book>					Everyday Italian
+/bookstore/book[2]					Second <book>					Harry Potter
+//title	All <title> 				elements						Everyday Italian, Harry Potter
+//book[price>29]					Books with price > 29			Everyday Italian
+//book[@category='children']		Books in "children" category	Harry Potter
+//book[title='Harry Potter']		Book with title "Harry Potter"	Yes
+//book/title[@lang='en']			Titles with language "en"		Both titles
+//book[author='J K. Rowling']/price	Price of book by J K. Rowling	29.99
+//book[year=2005]					Books published in 2005			Both books
+
+Learning Tips
+-----------
+@attribute is used to access attributes like @lang, @category
+[index] is 1-based indexing in XPath (not 0!)
+// means “anywhere in the document”
+
+
+
 
 
 

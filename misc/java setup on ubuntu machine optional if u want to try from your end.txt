@@ -1,0 +1,233 @@
+✅ Java 17 Installation on Ubuntu (Manual Tarball Method)
+📥 Download JDK 17 Tarball
+Link: jdk-17.0.12_linux-x64_bin.tar.gz
+
+📌 Step-by-Step Installation
+1️⃣ Download and go to the Downloads directory
+bash
+Copy
+Edit
+cd ~/Downloads
+2️⃣ Extract the JDK tar.gz file
+bash
+Copy
+Edit
+tar -zxvf jdk-17.0.12_linux-x64_bin.tar.gz
+3️⃣ Move JDK to system directory
+bash
+Copy
+Edit
+sudo mkdir -p /usr/lib/java
+sudo mv jdk-17.0.12 /usr/lib/java/
+📁 Your JDK is now located at: /usr/lib/java/jdk-17.0.12
+
+⚙️ 4️⃣ Configure update-alternatives
+bash
+Copy
+Edit
+sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/java/jdk-17.0.12/bin/java" 1
+sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/java/jdk-17.0.12/bin/javac" 1
+👉 (Optional) To set default:
+
+bash
+Copy
+Edit
+sudo update-alternatives --config java
+sudo update-alternatives --config javac
+🛠️ 5️⃣ Set Environment Variables
+Edit your .bashrc:
+
+bash
+Copy
+Edit
+sudo gedit ~/.bashrc
+Add these lines at the end:
+
+bash
+Copy
+Edit
+export JAVA_HOME=/usr/lib/java/jdk-17.0.12
+export PATH=$JAVA_HOME/bin:$PATH
+Save and apply changes:
+
+bash
+Copy
+Edit
+source ~/.bashrc
+✅ 6️⃣ Verify Installation
+bash
+Copy
+Edit
+java -version
+javac -version
+Expected Output:
+
+nginx
+Copy
+Edit
+java version "17.0.12" 2023-07-18 LTS
+javac 17.0.12
+Would you like this as a .sh script or downloadable .txt file too?
+
+
+
+
+
+
+
+
+You said:
+create a cheetsheet for configuation of maven 3.9.9 on ubuntu with pass set
+
+
+ChatGPT said:
+Here is a cheat sheet for installing and configuring Apache Maven 3.9.9 on Ubuntu, including setting the MAVEN_HOME and updating the system PATH.
+
+✅ Apache Maven 3.9.9 Installation on Ubuntu (Manual Method)
+📥 Download Maven 3.9.9
+URL: https://downloads.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz
+
+🔧 Step-by-Step Setup
+1️⃣ Go to Downloads folder
+bash
+Copy
+Edit
+cd ~/Downloads
+2️⃣ Download the Maven tar.gz file
+bash
+Copy
+Edit
+wget https://downloads.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz
+3️⃣ Extract the archive
+bash
+Copy
+Edit
+tar -zxvf apache-maven-3.9.9-bin.tar.gz
+4️⃣ Move Maven to /opt directory
+bash
+Copy
+Edit
+sudo mv apache-maven-3.9.9 /opt/maven
+🛠️ 5️⃣ Set Environment Variables
+Edit .bashrc or .zshrc:
+
+bash
+Copy
+Edit
+sudo gedit ~/.bashrc
+🔻 Add the following lines at the bottom:
+
+bash
+Copy
+Edit
+export MAVEN_HOME=/opt/maven
+export PATH=$MAVEN_HOME/bin:$PATH
+🔁 Apply the changes:
+
+bash
+Copy
+Edit
+source ~/.bashrc
+✅ 6️⃣ Verify Maven Installation
+bash
+Copy
+Edit
+mvn -version
+🔍 Expected output:
+
+yaml
+Copy
+Edit
+Apache Maven 3.9.9
+Maven home: /opt/maven
+Java version: 17.x.x, vendor: Oracle Corporation
+Would you also like this as a .txt file or a .sh installer script for faster setup?
+
+
+
+
+
+
+
+
+You said:
+sts 4.4 ide configuration with ubuntu
+
+
+ChatGPT said:
+Here is a cheat sheet for installing Spring Tool Suite (STS) 4.4 IDE on Ubuntu (Linux) manually and configuring it to work with JDK 17.
+
+✅ Spring Tool Suite (STS) 4.4 Installation on Ubuntu
+📥 Download STS 4.4 (Linux 64-bit)
+URL: https://download.springsource.com/release/STS4/4.4.0.RELEASE/dist/e4.13/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64.tar.gz
+
+📌 Step-by-Step Installation
+1️⃣ Download and go to the Downloads directory
+bash
+Copy
+Edit
+cd ~/Downloads
+2️⃣ Extract the STS archive
+bash
+Copy
+Edit
+tar -zxvf spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64.tar.gz
+3️⃣ Move STS to /opt directory
+bash
+Copy
+Edit
+sudo mv sts-4.4.0.RELEASE /opt/sts
+⚙️ 4️⃣ Create a Desktop Launcher (Optional but Recommended)
+Create a desktop file:
+
+bash
+Copy
+Edit
+sudo gedit ~/.local/share/applications/sts.desktop
+🔻 Paste the following:
+
+ini
+Copy
+Edit
+[Desktop Entry]
+Name=Spring Tool Suite 4.4
+Type=Application
+Exec=/opt/sts/SpringToolSuite4
+Terminal=false
+Icon=/opt/sts/icon.xpm
+Comment=Spring Tool Suite IDE
+NoDisplay=false
+Categories=Development;IDE;
+Name[en]=Spring Tool Suite
+Make it executable:
+
+bash
+Copy
+Edit
+chmod +x ~/.local/share/applications/sts.desktop
+Now you can search "Spring Tool Suite" in the Ubuntu application menu and launch it.
+
+🔧 5️⃣ Set Java 17 for STS (Optional)
+If you're using JDK 17 and want STS to use it explicitly:
+
+Edit STS SpringToolSuite4.ini:
+
+bash
+Copy
+Edit
+sudo gedit /opt/sts/SpringToolSuite4.ini
+🔻 Add these lines before -vmargs:
+
+swift
+Copy
+Edit
+-vm
+/usr/lib/java/jdk-17.0.12/bin/java
+(Replace the path with your actual Java 17 path)
+
+✅ 6️⃣ Launch STS
+bash
+Copy
+Edit
+/opt/sts/SpringToolSuite4
+or use launcher from menu if .desktop was created.

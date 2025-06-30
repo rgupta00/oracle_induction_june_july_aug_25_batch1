@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE people SYSTEM "people.dtd">
+<people>
+	<husband>
+		<name>mark</name>
+		<age>45</age>
+		<wife>
+			<wname>leena</wname>
+			<age>43</age>
+		</wife>
+	</husband>
+
+	<husband>
+		<name>matt</name>
+		<age>55</age>
+		<wife>
+			<wname>anne</wname>
+			<age>45</age>
+		</wife>
+	</husband>
+</people>

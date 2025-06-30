@@ -1,0 +1,10 @@
+how to install oracle 19c : We need to use oracle 19c in the training
+------------------------------------------------------------------
+download link:
+----------------
+https://www.oracle.com/in/database/technologies/oracle19c-windows-downloads.html
+
+keep password : admin
+
+refer video:
+https://www.youtube.com/watch?v=EE-FDv2FsSE

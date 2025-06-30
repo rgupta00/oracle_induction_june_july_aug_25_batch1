@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.oracle.com/note"
+	xmlns:tns="http://www.oracle.com/note" elementFormDefault="unqualified">
+	<element name="name">
+		<complexType>
+			<sequence>
+				<element name="first" type="int"/>
+				<element name="middle" type="string"/>
+				<element name="last" type="string"/>
+				<element name="title" type="string"/>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

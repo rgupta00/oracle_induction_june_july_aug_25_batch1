@@ -1,0 +1,165 @@
+Oracle 19c Jdbc & JPA Cheetsheet
+---------------------------------
+
+Step 1: download ojdbc8.jar and create jdbc hello world without maven
+---------------------------------------------------------------
+
+public class Demo {
+	public static void main(String[] args) {
+		String url = "jdbc:oracle:thin:@localhost:1521:orcl"; // change if using PDB
+		String user = "hr";
+		String password = "hr";
+
+		try {
+			// Load Oracle JDBC Driver (optional in modern Java)
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+
+			// Establish the connection
+			Connection conn = DriverManager.getConnection(url, user, password);
+			System.out.println("✅ Connected to Oracle HR schema");
+
+			// Query the employees table
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT first_name, last_name FROM employees");
+
+			// Print result
+			while (rs.next()) {
+				System.out.println(rs.getString("first_name") + " " + rs.getString("last_name"));
+			}
+
+			// Cleanup
+			rs.close();
+			stmt.close();
+			conn.close();
+			System.out.println("✅ Connection closed.");
+
+		} catch (Exception e) {
+			System.err.println("❌ Connection failed:");
+			e.printStackTrace();
+		}
+	}
+}
+
+Step 2: JDBC with maven:
+---------------------------
+
+step 1: configure maven to .m2 of ur system
+	mvn install:install-file -Dfile=ojdbc8.jar -DgroupId=com.oracle.database.jdbc -DartifactId=ojdbc8 -Dversion=19.3.0.0 -Dpackaging=jar
+	
+step 2: mvn configuration
+
+<properties>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+</properties>
+	
+<dependencies>
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>19.3.0.0</version>
+		</dependency>
+</dependencies>
+
+
+
+Step 3: JPA with maven:
+-----------------------
+Step 1: configure dependencies
+
+<dependencies>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>eclipselink</artifactId>
+			<version>4.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>19.3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.persistence</groupId>
+			<artifactId>jakarta.persistence-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+	<!--	<dependency>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>6.4.4.Final</version>
+		</dependency>-->
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+
+step 2: create entity
+-------------------
+@Entity
+@Table(name = "EMPLOYEES_abc")
+public class Employee {
+
+    @Id
+    @Column(name = "EMPLOYEE_ID")
+    private int id;
+
+    @Column(name = "FIRST_NAME")
+    private String firstName;
+
+    @Column(name = "LAST_NAME")
+    private String lastName;
+
+    @Column(name = "EMAIL")
+    private String email;
+}
+
+
+step 3: crud operation
+---------------------
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("HR_PU");
+
+ 
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(emp);
+        em.getTransaction().commit();
+        em.close();
+   
+    
+	
+        EntityManager em = emf.createEntityManager();
+        Employee emp = em.find(Employee.class, id);
+        em.close();
+        return emp;
+    
+	
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(emp);
+        em.getTransaction().commit();
+        em.close();
+    
+	
+        EntityManager em = emf.createEntityManager();
+        Employee emp = em.find(Employee.class, id);
+        if (emp != null) {
+            em.getTransaction().begin();
+            em.remove(emp);
+            em.getTransaction().commit();
+        }
+  
+
+    
+        EntityManager em = emf.createEntityManager();
+        List<Employee> list = em.createQuery("SELECT e FROM Employee e", Employee.class).getResultList();
+        em.close();
+        return list;
+    

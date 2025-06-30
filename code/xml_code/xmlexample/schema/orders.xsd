@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.oracle.com/orders"
+	xmlns:tns="http://www.oracle.com/orders" 
+	elementFormDefault="qualified">
+	
+	<complexType name="OrderItemType">
+		<sequence>
+			<element name="itemId" type="int"/>
+			<element name="itemName" type="string"/>
+			<element name="quantity" type="int"/>
+		</sequence>
+	</complexType>
+	
+	<complexType name="OrderType">
+		<sequence>
+			<element name="orderId" type="int"/>
+			<element name="customerId" type="string"/>
+			<element name="orderItem" type="tns:OrderItemType"/>
+		</sequence>	
+	</complexType>
+	
+	<element name="order" type="tns:OrderType"/>
+</schema>

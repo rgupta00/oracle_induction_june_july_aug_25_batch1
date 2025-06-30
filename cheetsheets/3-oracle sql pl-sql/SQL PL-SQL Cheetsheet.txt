@@ -1,0 +1,4451 @@
+How to install oracle 21 xe
+-------------------------
+refer doc shared
+
+
+how to uninstall oracle 21 xe
+https://www.youtube.com/watch?v=zjCwdhLm8nI
+
+
+
+how to install oracle 19c : We need to use oracle 19c in the training
+------------------------------------------------------------------
+download link:
+----------------
+https://www.oracle.com/in/database/technologies/oracle19c-windows-downloads.html
+
+keep password : admin
+
+refer video:
+https://www.youtube.com/watch?v=EE-FDv2FsSE
+
+
+Oracle SQL/ PLSQL cheetsheet
+------------------------------
+1. Introduction to database design ERD, normalization
+2. Introduction to SQL and PL/SQL
+3. Basic CRUD example
+4. Constraints In Oracle
+5. Select statement
+6. Single Row functions in Oracle
+7. Joins in Oracle
+8. Aggregate Functions
+9. Sub Queries in Oracle
+10. Oracle PLSQL – Introduction
+11. Constant in variable declaration
+12. DML Transactions in PL/SQL
+13. Conditional statement in PLSQL
+14. Cursor in PL/SQL
+15. Stored procedure in PL/SQL
+16. Trigger in Oracle in PL/SQL
+
+
+
+
+What is Oracle SQL?
+--------------------
+	Oracle SQL (Structured Query Language) is a powerful and 
+	widely-used database query language specifically designed for 
+	managing data stored in Oracle databases. 
+	
+	It provides a comprehensive set of commands and functions for querying, 
+	updating, and managing relational databases.
+
+	Oracle SQL is essential for interacting with Oracle Database Management Systems (DBMS) 
+	and is used by database administrators, developers, and analysts to perform various tasks.
+
+
+
+Key Features of Oracle SQL:
+---------------------------
+
+1. Data Querying
+-------------------
+	SELECT Statement: 
+		Used to retrieve data from one or more tables in the database.
+	WHERE Clause:
+		Filters data based on specified conditions.
+	Joins: 
+		Allows combining data from multiple tables based on related columns.
+	Subqueries: 
+		Queries nested within other queries for complex data retrieval.
+
+
+2. Data Manipulation
+--------------------
+	INSERT: Adds new rows of data into a table.
+	
+	UPDATE: Modifies existing data in a table.
+	
+	DELETE: Removes rows of data from a table.
+	
+	MERGE: Combines insert, update, and delete operations 
+			into a single statement.
+
+
+3. Data Definition
+--------------------
+	CREATE TABLE: Creates a new table in the database.
+	
+	ALTER TABLE: Modifies the structure of an existing table.
+	
+	DROP TABLE: Deletes a table from the database.
+	
+	CREATE INDEX: Creates indexes on table columns for faster data retrieval.
+
+
+Data Control
+---------------
+	GRANT: Gives specific privileges to users or roles.
+	
+	REVOKE: Removes previously granted privileges.
+	
+	CREATE USER/ROLE: Creates new database users or roles.
+	
+	ALTER USER/ROLE: Modifies user or role properties.
+
+
+Data Aggregation and Grouping
+------------------------------
+	GROUP BY: Groups rows based on specified columns.
+	
+	HAVING: Filters groups based on aggregate conditions.
+	
+	Aggregate Functions: SUM, AVG, MAX, MIN, COUNT, etc.,
+		for calculating summary statistics.
+	 
+
+What is PL/SQL (Procedural Language/SQL)?
+--------------------------------------
+	PL/SQL is Oracle’s procedural extension to SQL, providing additional programming 
+	capabilities within the Oracle database environment. It allows developers 
+	to write procedural code blocks, such as loops, conditional statements, 
+	and exception handling, directly within SQL commands. 
+	
+	PL/SQL enhances the functionality of SQL by providing a more robust programming language 
+	for developing complex database-driven applications.
+
+ 
+	Oracle SQL is the query language used to interact with Oracle databases, 
+	providing commands for querying, updating, and managing data.
+	
+	PL/SQL is Oracle’s procedural extension to SQL, allowing developers to 
+	write procedural code blocks within the database environment for 
+	more advanced application development and data manipulation tasks.
+	
+Key Features of PL/SQL:
+----------------------
+Procedural Constructs
+-------------------------
+	Variables: 
+			Declare and use variables to store data.
+			
+	Control Structures: 
+			IF-THEN-ELSE, CASE, LOOP, WHILE loops, etc., for program flow control.
+			
+	Exception Handling: 
+			Catch and handle errors that occur during execution.
+			
+	Cursors: 
+			Explicitly process individual rows returned by SQL queries.
+			
+	Functions and Procedures: 
+			Define reusable blocks of code for specific tasks.
+
+Data Manipulation and Querying
+--------------------------
+	SELECT INTO: 
+		Assigns query results to variables.
+	INSERT, UPDATE, DELETE: 
+		Perform DML operations within PL/SQL blocks.
+	Dynamic SQL: 
+		Construct and execute SQL statements dynamically at runtime.
+
+Modularity and Reusability
+-----------------------
+	Functions: 
+		Return a single value and can be used in SQL queries.
+	Procedures: 
+		Perform specific tasks and can have input and output parameters.
+	Packages: 
+		Group related procedures, functions, variables, and types together for easier management and reuse.
+
+Performance Optimization
+--------------------------
+	Bulk Processing: 
+		Process multiple rows of data at once for better performance.
+		
+	Cursor Variables: 
+		Pass cursors as parameters to procedures and functions.
+		
+	Integration with SQL
+	SQL and PL/SQL Integration: 
+		Seamlessly integrate SQL statements within PL/SQL code blocks.
+		
+	DDL Triggers: 
+		Execute PL/SQL code in response to DDL (Data Definition Language) events.
+
+
+
+Session-2
+----------
+* Various database options
+* Data types
+* SQL — Structured Query Language basics
+
+
+Various databse options:
+--------------
+	Oracle
+	MS SQL Server
+	Teradata
+	IBM DB2
+	Sybase
+
+
+
+
+SQL datatype ANSI
+-------------------
+
+1.Numeric
+-------------
+	int		decimal		float	double	number
+
+	number(6) 999999
+	number(8,2) 999999.99
+	number(2,2) 0.99
+
+2. Character
+-------------
+char varchar varchar2 
+
+Feature					CHAR		VARCHAR				VARCHAR2
+Length Type				Fixed		Variable			Variable
+Padded					Yes			No					No
+Oracle Usage			OK			❌ Deprecated		✅ Recommended
+Max Length				2000 bytes	Same as VARCHAR2	4000 bytes (SQL)
+
+3. Date
+-----------
+date
+
+insert — format mm/dd/yyyy dd/mm/yyyy
+
+In Oracle, the DATE datatype stores date and time values (accurate to the second). 
+To insert a date in dd/mm/yyyy format, use the TO_DATE() function.
+
+INSERT INTO your_table (your_date_column)
+VALUES (TO_DATE('23/06/2025', 'DD/MM/YYYY'));
+
+Note:
+In Oracle, the default internal format for a DATE value is: DD-MON-YY
+
+SELECT SYSDATE FROM DUAL;
+23-JUN-25
+
+
+Note on dual:
+------------
+	DUAL is a special one-row, one-column dummy table in Oracle used to select a pseudo column,
+	function result, or expression when no actual table is needed.
+
+	Example:
+	SELECT SYSDATE FROM DUAL;
+	✅ Returns current date from Oracle system.
+
+		It’s mainly used for:
+		Calling functions
+		Evaluating expressions
+		Fetching system variables
+
+4. LOB
+---------
+CLOB — GB
+
+What is LOB in Oracle?
+----------------------------
+	LOB stands for Large Object datatype in Oracle.
+	 It is used to store large amounts of data such as:
+
+		CLOB: Character Large Object – for large text (e.g., XML, logs)
+		BLOB: Binary Large Object – for binary data (e.g., images, videos)
+		NCLOB: National character set LOB
+		BFILE: Binary file stored outside the database (read-only)
+
+
+
+Classfication of SQL
+---------------------
+	DDL DML DRL TCL DCL
+
+DDL-Data Definition Language
+DML-Data Manipulation Language
+DRL-Data Retrival language
+TCL-Transaction Control Language
+DCL-Data Control Language (DBA)
+ 
+Listing all table in HR database:
+SELECT table_name FROM all_tables WHERE owner = 'HR';
+
+
+
+DDL – Data Definition Language — Auto Commit
+-------------------------------------------
+It is a category of SQL commands used to define, modify, or remove database structures 
+like tables, schemas, and indexes.
+
+Common DDL Commands:
+--------------------
+Command			Purpose
+------------------------
+CREATE			Creates database objects (tables, views, etc.)
+ALTER			Modifies existing database structures
+DROP			Deletes database objects permanently
+TRUNCATE		Removes all rows from a table (faster than DELETE, but irreversible)
+RENAME			Changes the name of a database object
+
+Key Features:
+-----------------
+	Auto-commit: DDL statements are immediately committed—can’t be rolled back.
+	Primarily used by DBAs and developers during database design or schema updates.
+
+	create
+	alter
+	rename
+	truncate
+	drop
+
+
+
+DML – Data Manipulation Language — User commit
+--------------------------------------------
+	Insert
+	update
+	delete
+	Merge
+
+DRL – Data Retrival language:
+-----------------------------
+	select
+	
+TCL – Transaction Control Language
+-----------------------------
+	commit
+	rollback
+	savepoint
+
+DCL – Data Control Language (DBA)
+----------------------------------
+	Grant
+	Revoke
+
+DDL – Data Definition Language — Auto Commit
+-------------------------------------------
+	create table table_name
+	(
+		column_1 data_type,
+		column_2 data_type,
+		column_3 data_type,
+		.
+		.
+		.
+		column_n data_type
+	);
+
+	create table customer
+	(
+		cust_id number(6),
+		cust_name varchar2(30),
+		mobile_no number(10),
+		dob date,
+		city varchar2(100),
+		email_id varchar2(100)
+	);
+
+ 
+
+insert into table_name(column1,column2,column3)values(value1,value2,value3);
+
+ 
+CRUD example:
+------------
+
+Creating table
+----------------
+create table customer
+(
+	cust_id number(6),
+	cust_name varchar2(30),
+	dob date,
+	mobile number(10),
+	address varchar2(100)
+);
+
+Inserting record into table
+------------------------------
+insert into customer(CUST_ID,cust_name,dob,mobile,address)
+values(100000,'Arun',to_date('09/12/1992','mm/dd/yyyy'),9090909090,'Chennai');
+
+Selecting records
+----------------
+select * from customer;
+
+Rollback inserted record
+-----------------------
+rollback;
+
+commit inserted record
+-----------------------
+commit;
+
+
+
+Inserting more record into table
+------------------------------
+
+INSERT INTO customer 
+VALUES (100001, 'rajiv', TO_DATE('09/11/2000','mm/dd/yyyy'), 8132437493, 'Chennai');
+
+insert into customer
+values
+(100002,'Radha',to_date('09/24/2012','mm/dd/yyyy'),1348374989);
+–SQL Error: ORA-00947: not enough values
+
+insert into customer(CUST_ID,cust_name,dob,mobile)
+values
+(100002,’Radha’,to_date('09/24/2012','mm/dd/yyyy'),1348374989);
+
+
+
+commit;
+
+Updating records
+----------------------
+	update table_name
+	set column_name=value
+	where condition;
+
+update customer
+set address='Hydrabad';
+
+rollback;
+
+select * from customer;
+
+update customer
+set address='Hydrabad'
+where cust_id=100002;
+
+commit;
+
+
+Alter table
+-------------------
+
+— Add a column
+--------------------
+		alter table table_name
+		add column_name data_type;
+
+	 
+	alter table customer
+	add zip number(6);
+
+	select * from customer;
+
+–drop a column
+--------------
+	alter table table_name
+	drop column column_name;
+
+	alter table customer
+	drop column address;
+
+ 
+
+— Rename a table
+-----------------
+	rename old_table_name to new_table_name;
+
+	rename customer to customer_details;
+
+	select * from customer_details;
+
+ 
+
+— rename a column
+-------------------
+	alter table table_name
+	rename column old_name to new_name;
+
+	alter table customer_details
+	rename column mobile to mobile_no;
+
+
+
+
+
+
+Session-3- Constraints In Oracle
+------------------------------
+
+Data validation before inserting the data into the table
+
+1. Primary Key
+----------------
+	— It will not allow duplicate value
+	— It will not allow null
+	— Only one primary key in a table
+
+	e.g emp_id, prod_id, cust_id, user_id, account_no
+
+composite Key:
+	cust_id+mobile_no —> Primary key(cust_id,mobile_no)
+
+2. Not Null *mandatory filed
+--------------------
+	— It will not allow null value
+	— It will allow duplicate
+
+	e.g First_name
+
+3. Unique
+------------
+	— It will not allow duplicate
+	— It will allow null
+
+	e.g mobile_no
+
+4. Check
+-----------
+	— data validation
+
+	check (age >=18)
+
+5. Foreign Key
+---------------
+	— Relationship between two tables
+	— It will accept duplicate value
+	— It should be a primary key in another table
+	— Any no of foreign key in a table
+
+	e.g foreign key (city_id) references city(city_id)
+
+	Violation:
+
+	Integrity constraint violated – parent key not found
+
+6. Default
+----------
+
+
+Lab: Creating table with constraint
+-------------------------------
+
+
+create table city
+(
+	city_id number(4),
+	city_name varchar2(30)
+);
+
+INSERT INTO city VALUES (10, 'Chennai');
+INSERT INTO city VALUES (20, 'Pune');
+INSERT INTO city VALUES (30, 'Hyd');
+INSERT INTO city VALUES (40, 'Delhi');
+
+select * from city;
+
+
+alter table city add primary key(city_id);
+------------------------------------
+
+select * from city;
+
+create table customer
+(
+	cust_id number(6) primary key,
+	cust_name varchar2(30) not null,
+	mobile_no number(10) unique check (length(mobile_no)=10),
+	age number(3) check (age>=18),
+	city_id number(4) references city(city_id)
+);
+
+
+
+INSERT INTO customer VALUES (100000, 'Arun', 9090909090, 28, 20);
+
+INSERT INTO customer VALUES (100001, 'Arun', 8080808080, 31, 30);
+
+INSERT INTO customer VALUES (100002, 'Vijay', 5050505050, 31, 10);
+
+INSERT INTO customer VALUES (100003, 'Ajith', 2894738243, 13, 30);
+You're inserting age = 13, which violates the CHECK (age >= 18) constraint.
+
+
+INSERT INTO customer VALUES (100004, 'Ramesh', 2894738789, 31, 60);
+ORA-02291: integrity constraint (HR.SYS_C007493) violated - parent key not found
+
+
+select * from customer;
+
+commit;
+
+desc customer;
+
+
+
+Query used to view all constraints (primary key, foreign key, unique, check, etc.)
+ defined on the CUSTOMER table owned by the HR schema.
+ -------------------------------------------
+
+SELECT * FROM all_constraints 
+WHERE owner = 'HR' AND table_name = 'CUSTOMER';
+
+Explanation of Each Part
+-------------------------
+Clause					Meaning
+all_constraints			A data dictionary view that shows all 
+						constraints visible to the current user.
+						
+owner = 'HR'			Filters for constraints owned by the HR schema 
+						(uppercase is required unless you created schema in lowercase).
+					
+table_name = 'CUSTOMER'	Filters constraints for the CUSTOMER table.
+
+What You’ll See in the Output
+-------------------------------
+OWNER	CONSTRAINT_NAME		CONSTRAINT_TYPE		TABLE_NAME	STATUS		R_CONSTRAINT_NAME	...
+HR		SYS_C007487			C (Check)			CUSTOMER	ENABLED		
+HR		SYS_C007488			C (Check)			CUSTOMER	ENABLED		
+HR		SYS_C007489			U (Unique)			CUSTOMER	ENABLED		
+HR		SYS_C007490			C (Check - age)		CUSTOMER	ENABLED		
+HR		SYS_C007491			P (Primary Key)		CUSTOMER	ENABLED		
+HR		SYS_C007492			R (Foreign Key)		CUSTOMER	ENABLED		SYS_C007480 (PK of CITY)	
+
+CONSTRAINT_TYPE Meaning
+----------------------
+Code	Type
+---------------------
+P			Primary Key
+U			Unique
+R			Foreign Key
+C			Check
+N		Not null (sometimes appears)
+
+Want to See Constraint Details (like check conditions)?
+-----------------------------------------
+SELECT constraint_name, search_condition
+FROM all_constraints
+WHERE owner = 'HR' AND table_name = 'CUSTOMER' AND constraint_type = 'C';
+
+This will show actual check conditions like:
+-----------------------------------------------
+
+LENGTH("MOBILE_NO") = 10
+AGE >= 18
+
+
+
+How to retrieve column-level details of constraints on the CUSTOMER table in the HR schema.
+------------------------------------------------------------------------------------
+SELECT * FROM all_cons_columns 
+WHERE owner = 'HR' AND table_name = 'CUSTOMER';
+
+
+Purpose of ALL_CONS_COLUMNS
+---------------------------
+	It shows which columns are involved in each constraint 
+	(e.g., primary key, foreign key, unique, check) — one row per column per constraint.
+
+How to list all constraints and their associated columns for the CUSTOMER table in the HR schema.
+--------------------------------------------------------------------------------------
+
+SELECT 
+    a.owner,
+    a.constraint_name,
+    a.constraint_type,
+    b.table_name,
+    b.column_name
+FROM 
+    all_constraints a,
+    all_cons_columns b
+WHERE 
+    a.constraint_name = b.constraint_name
+    AND a.owner = 'HR'
+    AND a.table_name = 'CUSTOMER';
+	
+	
+
+
+On delete cascade
+---------------------
+ON DELETE CASCADE Do?
+
+If a city is deleted from the city table, then all customers in that city 
+(from the customer table) will be automatically deleted too.
+
+Without ON DELETE CASCADE (Default Behavior):
+----------------------------------------
+DELETE FROM city WHERE city_id = 30;
+
+Error report -
+ORA-02292: integrity constraint (HR.SYS_C007493) violated - child record found
+
+
+With ON DELETE CASCADE:
+----------------------------
+After adding this foreign key:
+
+ALTER TABLE customer
+ADD CONSTRAINT city_fk
+FOREIGN KEY (city_id)
+REFERENCES city(city_id)
+ON DELETE CASCADE;
+
+Error report -
+-------------------
+ORA-02275: such a referential constraint already exists in the table
+
+https://docs.oracle.com/error-help/db/ora-02275/02275. 00000 -  
+"such a referential constraint already exists in the table"
+*Cause:    Self-evident.
+*Action:   Remove the extra constraint.
+
+Note:  How to Handle ORA Errors Smartly
+----------------------------------------
+Error Code	Meaning	Tip
+ORA-00001	Unique constraint violated	Duplicate key
+ORA-00942	Table or view does not exist	Check table name or privileges
+ORA-02275	FK already exists	Drop and recreate if needed
+ORA-02291	FK violation — parent key not found	Insert into parent table first
+ORA-02290	Check constraint violated	Fix the data value to meet condition
+ORA-06502	PL/SQL numeric/string conversion error	Fix data types in PL/SQL
+
+Just remember the cause, not the code.
+
+
+
+
+
+Step-by-Step Fix:
+----------------------
+1. Find the existing constraint name
+Run this:
+-------------------------
+SELECT constraint_name
+FROM user_constraints
+WHERE table_name = 'CUSTOMER'
+  AND constraint_type = 'R';  -- R = Referential (Foreign Key)
+  
+Let’s say it returns:
+--------------------------
+CITY_ID_FK   -- SYS_C007493
+
+2. Drop the existing foreign key constraint
+---------------------------------------------
+ALTER TABLE customer DROP CONSTRAINT CITY_ID_FK;
+(Replace CITY_ID_FK with the actual name from step 1.)
+
+3. Add it back with ON DELETE CASCADE
+---------------------------------
+ALTER TABLE customer
+ADD CONSTRAINT city_fk
+FOREIGN KEY (city_id)
+REFERENCES city(city_id)
+ON DELETE CASCADE;
+
+
+Now it will succeed, and the cascading delete will work.
+--------------------------------------------------
+
+Now when you run:
+------------------------
+DELETE FROM city WHERE city_id = 30;
+
+It will automatically do:
+
+DELETE FROM customer WHERE city_id = 30;
+
+So, all customers living in that city will be deleted too — without any extra code.
+
+
+
+
+
+Listing all constrants applied to a table:
+--------------------------------------
+SELECT * 
+FROM all_constraints 
+WHERE owner = 'HR' 
+  AND table_name = 'CUSTOMER';
+  
+	This will list all constraints (like primary keys, foreign keys, unique, check constraints, etc.) 
+	on the CUSTOMER table in the CORE schema.
+	
+	
+	
+
+————————————————————————————
+–Meta data tables will have all table & column level details
+
+select * from all_tables where owner='HR';
+
+select * from all_tab_columns where owner='HR' and column_name='SALARY';
+
+————————————————————————————
+
+Some error examples:
+-----------------------
+
+CREATE TABLE country (
+  cust_country_code VARCHAR2(2) PRIMARY KEY,
+  country_name VARCHAR2(30)
+);
+
+INSERT INTO country VALUES ('IN', 'India');
+
+-- INSERT INTO country VALUES ('IN', 'USA'); -- Duplicate PK, will error
+
+drop table country;
+
+ 
+
+CREATE TABLE customer (
+  cust_id NUMBER(6),
+  cust_name VARCHAR2(30) NOT NULL,
+  mobile_no NUMBER(10),
+  age NUMBER(3) CHECK (age >= 18),
+  city_id NUMBER(4) REFERENCES city(city_id),
+  PRIMARY KEY (cust_id, mobile_no)
+);
+
+INSERT INTO customer VALUES (100000, 'Arun', 9090909090, 28, 20);
+INSERT INTO customer VALUES (100000, 'Arun', 9090909091, 28, 20);
+
+-- The below insert will fail due to duplicate primary key
+-- INSERT INTO customer VALUES (100000, 'Arun', 9090909090, 28, 20);
+
+SELECT * FROM customer;
+
+
+
+
+
+
+
+
+
+Session-4- Select statement
+============================
+Basic SELECT & Column Alias
+---------------------------------
+
+SELECT * FROM employees;
+
+SELECT employee_id, first_name, email, hire_date, salary, department_id 
+FROM employees;
+
+SELECT employee_id AS emp_id, first_name, email, hire_date, salary, department_id 
+FROM employees;
+
+SELECT employee_id emp_id, first_name, email, hire_date, salary, department_id 
+FROM employees;
+
+
+SELECT employee_id emp_id, first_name, email, hire_date, salary, department_id 
+FROM employees;
+
+
+
+Column Concatenation
+------------------
+SELECT employee_id, first_name, last_name, 
+       CONCAT(first_name, last_name) AS full_name, 
+       email, hire_date, salary, department_id 
+FROM employees;
+
+Using space in full name
+--------------------------
+SELECT employee_id, first_name, last_name, 
+       CONCAT(CONCAT(first_name, ' '), last_name) AS full_name, 
+       email, hire_date, salary, department_id 
+FROM employees;
+
+Alternate: Pipe operator
+----------------------
+SELECT employee_id emp_id, first_name, last_name, 
+       first_name || ' ' || last_name AS full_name, 
+       email, hire_date, salary, department_id 
+FROM employees;
+
+Column Calculations
+----------------
+SELECT employee_id, first_name, email, hire_date, salary, 
+       salary + 1000 AS new_salary, 
+       salary * 12 AS annual_salary, 
+       department_id 
+FROM employees;
+
+
+
+
+
+DISTINCT and COUNT
+---------------
+
+SELECT department_id FROM employees;
+
+SELECT COUNT(department_id) FROM employees;
+
+SELECT DISTINCT department_id FROM employees;
+
+SELECT COUNT(DISTINCT department_id) FROM employees;
+
+SELECT COUNT(*) FROM (
+  SELECT DISTINCT department_id, job_id FROM employees
+);
+
+WHERE Clause
+------------
+
+SELECT * FROM employees WHERE salary > 10000;
+
+SELECT * FROM employees WHERE salary < 3000;
+
+SELECT * FROM employees WHERE salary BETWEEN 5000 AND 7000;
+
+SELECT * FROM employees WHERE salary NOT BETWEEN 5000 AND 7000;
+
+SELECT * FROM employees WHERE department_id IN (30, 60, 90);
+
+SELECT * FROM employees WHERE department_id NOT IN (30, 50, 80);
+
+SELECT * FROM employees WHERE department_id = 80 AND salary > 10000;
+
+SELECT * FROM employees WHERE department_id = 60 OR salary > 15000;
+
+SELECT * FROM employees WHERE department_id = 60 OR (department_id = 80 AND salary > 10000);
+
+
+
+ROWNUM & ROWID
+---------------
+
+ROWNUM (Pseudo Column)
+---------------------------
+	Definition: Represents the position of a row in the result set returned by a query.
+
+	Assigned Before Sorting: It is given before ORDER BY is applied.
+
+	Use: Mostly used to limit results (e.g., top N rows).
+
+	Example:
+
+	SELECT * FROM employees WHERE ROWNUM <= 5;
+	→ Fetches first 5 rows as they appear (not necessarily top 5 salaries, etc.).
+
+	SELECT * FROM employees WHERE ROWNUM <= 5;
+
+	-- ROWNUM must be checked in ascending order
+	SELECT ROWNUM, ROWID, employee_id, first_name FROM employees;
+
+	SELECT ROWNUM, ROWID, e.* FROM employees e;
+
+
+NULL Checks & COUNT
+---------------------
+
+SELECT * FROM employees WHERE commission_pct IS NULL;
+
+SELECT * FROM employees WHERE commission_pct IS NOT NULL;
+
+SELECT COUNT(*) FROM employees;
+
+SELECT COUNT(commission_pct) FROM employees;
+
+SELECT COUNT(*) FROM employees WHERE commission_pct IS NULL;
+
+
+DATE Functions
+--------------
+
+SELECT employee_id, hire_date, TO_CHAR(hire_date, 'YYYY') AS year_joined FROM employees;
+
+SELECT employee_id, hire_date, TO_NUMBER(TO_CHAR(hire_date, 'YYYY')) AS hire_year FROM employees;
+
+SELECT employee_id, hire_date, TO_NUMBER(TO_CHAR(hire_date, 'MM')) AS hire_month FROM employees;
+
+SELECT employee_id, hire_date, TO_CHAR(hire_date, 'Mon') AS hire_month_name FROM employees;
+
+SELECT employee_id, hire_date, TO_CHAR(hire_date, 'Month') AS full_month FROM employees;
+
+SELECT employee_id, hire_date, TO_CHAR(hire_date, 'DD-MM-YYYY HH24:MI:SS') AS full_datetime FROM employees;
+
+SELECT * FROM employees WHERE TO_CHAR(hire_date, 'YYYY') = '2005';
+
+SELECT * FROM employees WHERE TO_CHAR(hire_date, 'MMYYYY') BETWEEN '092005' AND '092006';
+
+SELECT * FROM employees WHERE TO_CHAR(hire_date, 'MM') = '02';
+
+SELECT * FROM employees WHERE TO_CHAR(hire_date, 'MMYYYY') = '032005';
+
+SELECT * FROM employees WHERE TO_CHAR(hire_date, 'FMDay') = 'Monday';
+
+SELECT * FROM employees WHERE TO_CHAR(hire_date, 'D') = '2';
+
+
+
+
+SYSDATE & TIMESTAMP
+------------------
+
+SELECT SYSDATE FROM dual;
+
+SELECT CURRENT_DATE FROM dual;
+
+SELECT SYSTIMESTAMP FROM dual;
+
+SELECT TRUNC(SYSTIMESTAMP) FROM dual;
+
+
+Which one reflects local machine time?
+--------------------------------------------------
+Function							Time Source	Reflects Your PC's Local Time?
+SYSDATE	Database server time		No (depends on DB server)
+CURRENT_TIMESTAMP					Session’s time zone	Yes (if session time zone = your local time)
+
+
+
+
+
+Pattern Matching (LIKE)
+--------------------------
+SELECT * FROM employees WHERE first_name LIKE 'A%';
+
+SELECT * FROM employees WHERE UPPER(first_name) LIKE 'J%';
+
+SELECT * FROM employees WHERE first_name LIKE '%s';
+
+SELECT * FROM employees WHERE first_name LIKE '%an%';
+
+SELECT * FROM employees WHERE first_name LIKE 'S%n';
+
+SELECT * FROM employees WHERE LENGTH(first_name) = 7;
+
+SELECT * FROM employees WHERE first_name LIKE '_a____';
+
+SELECT * FROM employees WHERE first_name LIKE '_a_t__';
+
+SELECT * FROM employees WHERE first_name LIKE 'A%' AND salary LIKE '%200';
+
+-- Escape special characters like underscore
+SELECT * FROM employees WHERE first_name LIKE '%\_%' ESCAPE '\'; 
+
+
+
+Sorting — Order by asc | desc
+-----------------------------------
+select * from employees;
+
+select ascii('A') from dual; — 65
+
+select ascii('a') from dual; –97
+
+select * from employees order by first_name;
+
+select * from employees order by first_name desc;
+
+select * from employees order by salary asc;
+
+select * from employees order by salary desc;
+
+— null treated as highest value
+
+select * from employees order by commission_pct;
+
+select * from employees order by commission_pct desc;
+
+— order by more than one column
+
+select * from employees order by salary desc,hire_date;
+
+select * from employees order by 8;
+
+select * from employees order by 6,8 desc;
+
+ 
+
+
+
+
+
+
+
+
+
+Session-5: Single Row functions in Oracle:
+============================================
+Single Row Functions in Oracle
+--------------------------
+	Single row functions operate on one row at a time and return 
+	one result per row. These functions are useful for string manipulation, 
+	number processing, date formatting, etc.
+
+	Categories:
+	---------------
+	Character Functions: UPPER(), LOWER(), INITCAP(), LENGTH(), SUBSTR(), INSTR(), REVERSE(), LPAD(), RPAD()
+	Number Functions: ROUND(), TRUNC(), MOD()
+	Date Functions: SYSDATE, MONTHS_BETWEEN(), ADD_MONTHS()
+	Conversion Functions: TO_CHAR(), TO_DATE(), TO_NUMBER()
+	General Functions: NVL(), DECODE(), CASE
+
+String Functions Examples
+
+------------------------
+1. Case Conversion & String Properties
+-------------------------------
+SELECT first_name,
+       UPPER(first_name),
+       LOWER(first_name),
+       INITCAP(first_name),
+       LENGTH(first_name),
+       REVERSE(first_name)
+FROM employees;
+
+
+Case-Insensitive Search
+----------------
+SELECT * FROM employees WHERE LOWER(first_name) = 'john';
+SELECT * FROM employees WHERE UPPER(first_name) = 'JOHN';
+
+
+Address Case Handling
+------------------
+
+SELECT address, LOWER(address) FROM customer_details;
+
+SELECT * FROM customer_details WHERE LOWER(address) = 'chennai';
+SELECT * FROM customer_details WHERE UPPER(address) = 'CHENNAI';
+
+Substring (SUBSTR)
+----------------
+-- Syntax: SUBSTR(string, position, length)
+
+SELECT SUBSTR('Welcome to India!!!', 12, 5) FROM dual;      -- Output: India
+SELECT SUBSTR('Welcome to India!!!', 12) FROM dual;         -- Output: India!!!
+SELECT SUBSTR('Welcome to India!!!', -8) FROM dual;         -- Output: India!!!
+SELECT SUBSTR('Welcome to India!!!', -8, 5) FROM dual;      -- Output: India
+
+SELECT job_id, SUBSTR(job_id, 1, 4) FROM employees;
+
+String Position (INSTR)
+------------------
+SELECT INSTR('CORPORATE FLOOR', 'R') FROM dual;             -- First R position
+SELECT INSTR('Busycoder ACADEMY', 'AB') FROM dual;
+
+-- From 3rd char, 2nd occurrence of 'OR'
+SELECT INSTR('CORPORATE FLOOR', 'OR', 3, 2) FROM dual;
+SELECT INSTR('CORPORATE FLOOR', 'OR', 3, 1) FROM dual;
+
+-- Extract part of a sentence before a comma
+SELECT SUBSTR('When system dialog prompts, click Open Zoom Meetings.', 1,
+       INSTR('When system dialog prompts, click Open Zoom Meetings.', ',') - 1)
+FROM dual;
+
+-- Get user part of email
+SELECT SUBSTR('sample@gmail.com', 1, INSTR('sample@gmail.com', '@') - 1) FROM dual;
+
+Padding (LPAD / RPAD)
+-----------------
+SELECT LPAD('WELCOME', 15, '*') FROM dual;
+SELECT RPAD('WELCOME', 15, '*') FROM dual;
+
+Nested LPAD and RPAD
+--------------------------
+SELECT LPAD(RPAD('WELCOME', 15, '*'), 30, '*') FROM dual;
+
+Salary padded with 0s to length 15
+----------------------------
+SELECT salary, LPAD(salary, 15, '0') FROM employees;
+Would you like me to create a printable PDF or Notion template of these notes?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Session-6: Joins in Oracle
+=========================
+	Equi join – An equi join is a type of join that combines tables
+	based on matching values in specified columns. =
+
+	Non-Equi join – The nonequijoins is such a join which match column
+	values from different tables based on an inequality
+	(instead of the equal sign like >, <, >=, <= ) expression
+
+4 Types of Equi join:
+=====================
+	Inner Join
+	Left Outer join
+	Right Outer Join
+	Full Outer Join
+
+2 methods to write join query:
+==============================
+	1. Implicit method
+	2. ANSI Method
+
+Table scripts for practice:
+***************************
+create table customer
+(
+	cust_id number,
+	cust_name varchar2(50),
+	mob_no number(10),
+	email varchar2(50),
+	country_id number(3)
+);
+
+INSERT INTO customer (CUST_ID, CUST_NAME, MOB_NO, EMAIL, COUNTRY_ID) 
+VALUES (1000, 'Kannan', 8989898989, 'kannan@gmail.com', 200);
+
+INSERT INTO customer (CUST_ID, CUST_NAME, MOB_NO, EMAIL, COUNTRY_ID) 
+VALUES (1001, 'Arun', 8989898990, 'arun@gmail.com', 204);
+
+INSERT INTO customer (CUST_ID, CUST_NAME, MOB_NO, EMAIL, COUNTRY_ID) 
+VALUES (1002, 'Karthik', 8989898991, 'Karthik@gmail.com', 202);
+
+INSERT INTO customer (CUST_ID, CUST_NAME, MOB_NO, EMAIL, COUNTRY_ID) 
+VALUES (1003, 'Shankar', 8989898992, 'shankar@gmail.com', 203);
+
+INSERT INTO customer (CUST_ID, CUST_NAME, MOB_NO, EMAIL, COUNTRY_ID) 
+VALUES (1004, 'Sree', 8989898993, 'Sree@gmail.com', 205);
+
+INSERT INTO customer (CUST_ID, CUST_NAME, MOB_NO, EMAIL, COUNTRY_ID) 
+VALUES (1005, 'Babu', 8989898994, 'Babu@gmail.com', 200);
+
+INSERT INTO customer (CUST_ID, CUST_NAME, MOB_NO, EMAIL, COUNTRY_ID) 
+VALUES (1006, 'Radha', 8989898995, 'Radha@gmail.com', 202);
+
+INSERT INTO customer (CUST_ID, CUST_NAME, MOB_NO, EMAIL, COUNTRY_ID) 
+VALUES (1007, 'Senthil', 8989898996, 'Senthil@gmail.com', 200);
+
+
+commit;
+
+create table country
+(
+	Country_id number(3),
+	Country_name varchar2(50)
+);
+
+insert into country (country_id, country_name) values (200, 'INDIA');
+insert into country (country_id, country_name) values (201, 'CHINA');
+insert into country (country_id, country_name) values (202, 'USA');
+insert into country (country_id, country_name) values (203, 'SINGAPORE');
+insert into country (country_id, country_name) values (204, 'UK');
+
+commit;
+
+
+
+Join tutorial:
+===============
+1. INNER JOIN
+----------------
+Returns only the matching records from both tables.
+
+select c.cust_id, c.cust_name, c.email, co.country_name
+from customer c
+inner join country co on c.country_id = co.country_id;
+
+
+Result: Only customers whose country_id exists in the country table.
+
+2. LEFT OUTER JOIN (LEFT JOIN)
+------------------------------
+	Returns all records from the left table (customer), 
+	and matched records from the right table (country).
+	If no match, NULL for country fields.
+
+
+	select c.cust_id, c.cust_name, c.email, co.country_name
+	from customer c
+	left join country co on c.country_id = co.country_id;
+
+	Use Case: See all customers, even if their country_id is missing in the country table.
+
+3. RIGHT OUTER JOIN (RIGHT JOIN)
+--------------------------------
+	Returns all records from the right table (country), and matched 
+	records from the left table (customer).
+	If no match, NULL for customer fields.
+
+
+	select c.cust_id, c.cust_name, co.country_name
+	from customer c
+	right join country co on c.country_id = co.country_id;
+	
+	Use Case: See all countries, even if no customer belongs to them.
+
+FULL OUTER JOIN
+---------------------
+Returns all records from both tables.
+Matched records from both sides, unmatched rows get NULL on the other side.
+
+	select c.cust_id, c.cust_name, co.country_name
+	from customer c
+	full outer join country co on c.country_id = co.country_id;
+
+	Use Case: See a complete list of all customers and countries, regardless of matching.
+
+CROSS JOIN
+------------
+	Returns Cartesian product – every customer with every country.
+
+	select c.cust_name, co.country_name
+	from customer c
+	cross join country co;
+
+	Use Case: Rare in real applications, used for testing or combinations.
+	
+Difference FULL OUTER JOIN and CROSS JOIN 
+-----------------------------------------
+Simple Analogy
+---------------
+	CROSS JOIN → All possible pairs (brute force)
+	FULL OUTER JOIN → All possible matches + leftovers
+
+
+6. SELF JOIN
+----------------
+	Join a table with itself.
+	(Not applicable directly here unless customers refer each other, e.g., referrals).
+
+
+
+ where we’ll find pairs of salesmen from the same city.
+---------------------------------------------------
+
+1. Create Table
+-----------------
+CREATE TABLE salesman (
+    salesman_id   NUMBER PRIMARY KEY,
+    name          VARCHAR2(30),
+    city          VARCHAR2(20)
+);
+
+2. Insert Sample Data
+----------------------
+INSERT INTO salesman VALUES (101, 'Arun', 'Delhi');
+INSERT INTO salesman VALUES (102, 'Vijay', 'Delhi');
+INSERT INTO salesman VALUES (103, 'Ravi', 'Mumbai');
+INSERT INTO salesman VALUES (104, 'Amit', 'Chennai');
+INSERT INTO salesman VALUES (105, 'Sunil', 'Delhi');
+INSERT INTO salesman VALUES (106, 'Kiran', 'Mumbai');
+
+3. Self Join Query – Salesmen from the Same City
+-------------------------------------------
+SELECT
+    s1.name AS salesman_1,
+    s2.name AS salesman_2,
+    s1.city
+FROM
+    salesman s1
+JOIN
+    salesman s2
+ON
+    s1.city = s2.city
+    AND s1.salesman_id < s2.salesman_id;
+
+Output:
+-----------
+salesman_1	salesman_2	city
+Arun		Vijay	Delhi
+Arun		Sunil	Delhi
+Vijay		Sunil	Delhi
+Ravi		Kiran	Mumbai
+
+We use s1.salesman_id < s2.salesman_id to avoid duplicate and mirrored pairs (e.g., (Arun, Vijay) 
+and (Vijay, Arun)).
+
+
+
+Inner Join:
+------------
+
+— implicit method
+-------------------
+select
+c.cust_id,
+c.cust_name,
+c.mob_no,
+c.email,
+c.country_id,
+r.country_name
+from customer c, country r
+where c.country_id=r.country_id;
+
+— ANSI Method
+---------------
+
+select
+c.cust_id,
+c.cust_name,
+c.mob_no,
+c.email,
+c.country_id,
+r.country_name
+from customer c inner join country r
+on c.country_id=r.country_id;
+
+
+
+
+
+Left Outer Join:
+------------------
+— implicit
+
+select
+c.cust_id,
+c.cust_name,
+c.mob_no,
+c.email,
+c.country_id,
+r.country_name
+from customer c, country r
+where c.country_id=r.country_id(+);
+
+
+— ANSI
+------------
+select
+c.cust_id,
+c.cust_name,
+c.mob_no,
+c.email,
+c.country_id,
+r.country_name
+from customer c Left Outer join country r
+on c.country_id=r.country_id;
+
+
+
+
+
+
+Right Outer Join:
+----------------------
+
+— implicit
+-----------
+
+select
+c.cust_id,
+c.cust_name,
+c.mob_no,
+c.email,
+c.country_id,
+r.country_name
+from customer c, country r
+where c.country_id(+)=r.country_id;
+
+
+— ANSI
+----------
+
+select
+c.cust_id,
+c.cust_name,
+c.mob_no,
+c.email,
+c.country_id,
+r.country_name
+from customer c Right Outer join country r
+on c.country_id=r.country_id;
+
+
+
+
+Full Outer Join:
+------------------
+
+— implicit method
+-------------------
+
+select
+c.cust_id,
+c.cust_name,
+c.mob_no,
+c.email,
+c.country_id,
+r.country_name
+from customer c, country r
+where c.country_id=r.country_id(+)
+union
+select
+c.cust_id,
+c.cust_name,
+c.mob_no,
+c.email,
+c.country_id,
+r.country_name
+from customer c, country r
+where c.country_id(+)=r.country_id;
+
+
+— ANSI
+--------------
+select
+c.cust_id,
+c.cust_name,
+c.mob_no,
+c.email,
+c.country_id,
+r.country_name
+from customer c Full Outer join country r
+on c.country_id=r.country_id;
+
+
+3 tables — customer city country
+---------------------------------
+select
+c1.cust_id,
+c1.cust_name,
+c1.mob_no,
+c1.email,
+c1.city_id,
+c2.city_name,
+c2.country_id country_id,
+c3.country_name
+from customer c1,city c2, country c3
+where c1.city_id=c2.city_id
+and c2.country_id=c3.country_id;
+
+ 
+
+select
+c1.cust_id,
+c1.cust_name,
+c1.mob_no,
+c1.email,
+c1.city_id,
+c2.city_name,
+c2.country_id country_id,
+c3.country_name
+from customer c1 inner join city c2
+on c1.city_id=c2.city_id
+inner join country c3
+on c2.country_id=c3.country_id;
+
+*************************************************************
+— 2 tables join
+
+select * from employees;
+
+select * from departments;
+
+select
+e.employee_id,
+e.first_name,
+e.email,
+e.SALARY,
+e.department_id,
+d.DEPARTMENT_NAME,
+d.LOCATION_ID
+from Employees e,departments d
+where e.department_id=d.department_id;
+
+select
+e.employee_id,
+e.first_name,
+e.email,
+e.SALARY,
+e.department_id,
+d.DEPARTMENT_NAME,
+d.LOCATION_ID
+from employees e inner join DEPARTMENTS d
+on e.department_id=d.department_id;
+
+— Left Outer Join
+
+select
+e.employee_id,
+e.first_name,
+e.job_id,
+e.salary,
+e.department_id,
+d.DEPARTMENT_NAME
+from employees e, departments d
+where e.department_id=d.department_id(+);
+
+select
+e.employee_id,
+e.first_name,
+e.job_id,
+e.salary,
+e.department_id,
+d.DEPARTMENT_NAME
+from employees e left join departments d
+on e.department_id=d.department_id;
+
+—————————————————-
+
+— Right outer join
+
+select
+e.employee_id,
+e.first_name,
+e.job_id,
+e.salary,
+d.department_id,
+d.DEPARTMENT_NAME
+from employees e, departments d
+where e.department_id(+)=d.department_id;
+
+select
+e.employee_id,
+e.first_name,
+e.job_id,
+e.salary,
+e.department_id,
+d.DEPARTMENT_NAME
+from employees e right join departments d
+on e.department_id=d.department_id;
+
+— Full Outer Join
+
+select
+e.employee_id,
+e.first_name,
+e.job_id,
+e.salary,
+e.department_id,
+d.DEPARTMENT_NAME
+from employees e full join departments d
+on e.department_id=d.department_id;
+
+********************************************************************************
+
+select the departmets where no employees are working
+
+select
+d.department_id,
+d.DEPARTMENT_NAME
+from employees e, departments d
+where e.department_id(+)=d.department_id and e.employee_id is null;
+
+================================================================================
+3 tables join
+
+select * from locations;
+
+select
+e.employee_id,
+e.first_name,
+e.job_id,
+e.salary,
+e.department_id,
+d.DEPARTMENT_NAME,
+d.location_id,
+l.street_address,
+l.city,
+l.country_id
+from employees e,departments d,locations l
+where e.department_id=d.department_id
+and d.location_id=l.location_id;
+
+select
+e.employee_id,
+e.first_name,
+e.job_id,
+e.salary,
+e.department_id,
+d.DEPARTMENT_NAME,
+d.location_id,
+l.country_id
+from employees e inner join departments d
+on e.department_id=d.department_id
+inner join locations l
+on d.location_id=l.location_id;
+
+ 
+
+select
+e.employee_id,
+e.first_name,
+e.job_id,
+e.salary,
+e.department_id,
+d.DEPARTMENT_NAME,
+d.location_id,
+l.country_id,
+c.COUNTRY_NAME
+from employees e inner join departments d
+on e.department_id=d.department_id
+inner join locations l
+on d.location_id=l.location_id
+inner join COUNTRIES c on l.COUNTRY_ID=c.COUNTRY_ID
+where l.country_id=’CA’ and e.salary >10000;
+
+
+
+
+
+
+——————————————–
+4 tables join with sub query:
+=============================
+select
+e.employee_id,
+e.first_name,
+e.job_id,
+e.salary,
+e.department_id,
+d.DEPARTMENT_NAME,
+d.location_id,
+l.country_id,
+c.country_name
+from employees e inner join (select department_id,department_name,location_id from departments) d
+on e.department_id=d.department_id
+join locations l
+on d.location_id=l.location_id
+join countries c
+on l.country_id=c.country_id where c.country_name=’United Kingdom’ and e.salary >10000;
+
+— 5 tables Implicit joins
+
+select
+e.employee_id,
+e.first_name,
+e.job_id,
+e.salary,
+case when salary >10000 then ‘High salary’ else ‘Low Salary’ end salary_status,
+e.department_id,
+d.DEPARTMENT_NAME,
+d.location_id,
+l.country_id,
+c.country_name,
+j.job_title
+from employees e, (select department_id,department_name,location_id from departments) d, locations l, countries c,jobs j
+where e.department_id=d.department_id
+and d.location_id=l.location_id
+and l.country_id=c.country_id
+and e.job_id=j.job_id and l.country_id in (‘UK’,’CA’) and e.job_id=’SA_REP’;
+
+— 5 tables ANSI joins
+
+select
+e.employee_id,
+e.first_name,
+e.job_id,
+e.salary,
+case when salary >10000 then ‘High salary’ else ‘Low Salary’ end salary_status,
+e.department_id,
+d.DEPARTMENT_NAME,
+d.location_id,
+l.country_id,
+c.country_name,
+j.job_title
+from employees e inner join (select department_id,department_name,location_id from departments) d
+on e.department_id=d.department_id
+join locations l
+on d.location_id=l.location_id
+join countries c
+on l.country_id=c.country_id
+join jobs j
+on e.job_id=j.job_id
+where l.country_id in (‘UK’,’CA’) and e.job_id=’SA_REP’;
+
+select
+e.employee_id,
+e.first_name,
+e.job_id,
+e.salary,
+case when salary >10000 then ‘High salary’ else ‘Low Salary’ end salary_status,
+e.department_id,
+d.DEPARTMENT_NAME,
+d.location_id,
+l.country_id,
+c.country_name,
+j.job_title
+from employees e inner join (select department_id,department_name,location_id from departments) d
+on e.department_id=d.department_id
+join locations l
+on d.location_id=l.location_id
+join countries c
+on l.country_id=c.country_id
+join jobs j
+on e.job_id=j.job_id
+where e.job_id like ‘%CLERK’ and upper(c.country_name) like ‘%UNITED%’;
+
+ 
+
+https://stackoverflow.com/questions/16263652/multiple-table-join-query-with-count-in-oracle-sql
+
+——————————————————————————–
+
+–Cross Join or Cartesian product
+
+select * from departments;
+select
+e.employee_id,
+e.first_name,
+e.email,
+e.SALARY,
+e.department_id,
+d.DEPARTMENT_NAME,
+d.LOCATION_ID
+from employees e, departments d
+–where e.department_id=d.department_id;
+
+107*27=2889
+
+——————————————————————————–
+self Join
+
+select * from employees;
+
+select
+e1.employee_id,
+e1.first_name,
+‘reports to’,
+e2.employee_id,
+e2.first_name
+from employees e1,employees e2
+where e1.manager_id=e2.employee_id order by e1.employee_id;
+
+——————————————————————–
+
+–Non-Equi Join
+
+select
+e.employee_id,
+e.first_name,
+e.email,
+e.SALARY,
+e.department_id,
+d.DEPARTMENT_NAME,
+d.LOCATION_ID
+from employees e, departments d
+where e.department_id!=d.department_id;
+
+ 
+
+——————————————————————–
+Join with USING clause
+
+SELECT employee_id,first_name,job_title,
+department_name, city
+FROM employees
+INNER JOIN departments USING (department_id)
+INNER JOIN locations USING (location_id)
+INNER JOIN jobs USING (job_id)
+ORDER BY 1;
+
+
+
+
+
+Session-7: Aggregate Functions
+===============================
+min()
+max()
+sum()
+Avg()
+count()
+
+select max(salary) from employees;
+select min(salary) from employees;
+select sum(salary) from employees;
+select count(salary) from employees;
+select avg(salary) from employees;
+
+————————————————–
+We can not select non-aggregate column with aggregate column.
+
+select first_name,max(salary) from employees;
+ORA-00937: not a single-group group function
+
+select first_name,max(salary) from employees group by first_name;
+— wrong
+
+select department_id,max(salary) from employees group by department_id;
+
+–whenever we want to use wise keyword, use group by.
+
+Filter condition on resultant of group by clause – We have to use having clause.
+
+Having clause is always come with group by group by + having
+
+select department_id,sum(salary) from employees group by department_id;
+
+select department_id,sum(salary) from employees group by department_id having sum(salary) > 50000;
+
+select first_name,max(salary) from employees;
+–ORA-00937: not a single-group group function
+
+select first_name,max(salary) from employees group by first_name;
+— wrong logic
+
+select department_id,sum(salary) from employees where department_id is not null
+group by department_id having sum(salary) >50000 order by 1;
+
+The order of keywords in any oracle SQL statement.
+
+1.from
+2.where
+3.group by
+4.having
+5.order by
+
+select e.department_id,d.department_name, sum(salary)
+from employees e , departments d
+where e.department_id=d.department_id and e.department_id is not null
+group by e.department_id,d.department_name
+having sum(salary) >50000 order by 1;
+
+–select the department where more than 30 employees are working;
+
+select e.department_id,d.department_name,count(*)
+from employees e inner join departments d
+on e.department_id=d.department_id
+group by e.department_id, d.department_name having count(*) > 30;
+
+— country wise employees count
+
+select l.country_id,c.country_name, count(*) from employees e,departments d,locations l,countries c
+where e.department_id=d.department_id and
+d.location_id=l.location_id and l.country_id=c.country_id
+group by l.country_id,c.country_name;
+
+
+
+
+
+
+
+
+
+
+
+
+Session-8: Sub Queries in Oracle
+=================================
+ What is a Subquery?
+ -------------------
+	A subquery is a SQL query nested inside another query, 
+	used to return data that the outer query will use.
+
+ Think of it as:
+ ---------------
+“Find something… based on the result of another query.”
+
+Why Use Subqueries?
+	--------------------
+	Filter rows based on dynamic conditions
+	Replace hardcoded values with calculated ones
+	Solve problems in a modular and readable way
+
+Types of Subqueries
+--------------------
+Type					Used In					Returns
+------------------------------------------------------------
+Single-row				=, <, >, etc.					One value
+Multi-row				IN, ANY, ALL						Multiple values
+Multi-column			Tuple comparisons					Row of values
+Correlated				Depends on outer query				Row-by-row logic
+Scalar					Anywhere an expression can appear	One value
+
+
+select (select);
+
+2 1
+
+outer Query inner Query
+------------------
+
+select (select);
+insert (select);
+update (select);
+delete (select);
+
+1. Single row sub query
+
+2. Multi row sub Query
+
+3. Multi row multi column subquery
+
+4. Co-related sub query
+
+************************
+
+
+
+
+
+1. Single row sub query:
+========================
+
+select (select);
+
+1 row
+
+select max(salary) from employees;
+
+select * from employees where salary =24000;
+
+finding max salary using sub quaries:
+----------------------------------
+select * from employees where salary =(select max(salary) from employees);
+
+=
+!= or <>
+>
+>=
+<
+<=
+
+Second highest salary:
+-------------------------
+SELECT MAX(salary)
+FROM employees
+WHERE salary < (SELECT MAX(salary) FROM employees);
+
+Nth highest salary:
+-------------------------
+SELECT salary
+FROM employees e1
+WHERE N - 1 = (
+  SELECT COUNT(DISTINCT salary)
+  FROM employees e2
+  WHERE e2.salary > e1.salary
+);
+
+Replace N with the desired rank (e.g., 2 for second highest, 5 for fifth highest).
+
+Explanation This subquery:
+-------------------------
+	SELECT COUNT(DISTINCT salary) FROM employees e2 WHERE e2.salary > e1.salary
+	counts how many salaries are greater than the current row’s salary.
+
+	If exactly N−1 salaries are greater, then that salary is the Nth highest.
+
+3rd Highest Salary
+-----------------
+	SELECT salary
+	FROM employees e1
+	WHERE 2 = (
+	  SELECT COUNT(DISTINCT salary)
+	  FROM employees e2
+	  WHERE e2.salary > e1.salary
+	);
+
+–Some more examples:
+=====================
+
+Whose employee job is the same as the job of ‘Stephen’?
+----------------------------------------------------------
+SELECT * FROM employees WHERE first_name = 'Stephen'; -- ST_CLERK
+
+Job ID of 'Stephen'
+-----------------
+SELECT * FROM employees WHERE job_id = (
+  SELECT job_id FROM employees WHERE first_name = 'Stephen'
+);
+
+Check 'James' employees
+-----------------
+SELECT * FROM employees WHERE first_name = 'James';
+
+This may throw ORA-01427 if more than 1 James
+---------------------------------------------
+SELECT * FROM employees WHERE job_id = (
+  SELECT job_id FROM employees WHERE first_name = 'James'
+);
+
+Use DISTINCT to avoid multiple rows
+-------------------------------------
+SELECT * FROM employees WHERE job_id = (
+  SELECT DISTINCT job_id FROM employees WHERE first_name = 'James'
+);
+
+-Check 'Steven' employees
+----------------------------------
+SELECT * FROM employees WHERE first_name = 'Steven';
+
+May also throw ORA-01427 if 'Steven' has multiple job IDs
+------------------------------------------------------
+SELECT * FROM employees WHERE job_id = (
+  SELECT DISTINCT job_id FROM employees WHERE first_name = 'Steven'
+);
+
+-Multi-row subquery using IN
+------------------------------
+SELECT * FROM employees WHERE job_id IN (
+  SELECT DISTINCT job_id FROM employees WHERE first_name = 'Steven'
+);
+
+Employees whose salary is more than the max salary of "Sales Manager"
+-----------------------------------------------------------
+SELECT * FROM employees;
+SELECT job_id FROM jobs WHERE job_title = 'Sales Manager';
+
+SELECT MAX(salary)
+FROM employees
+WHERE job_id = (
+  SELECT job_id FROM jobs WHERE job_title = 'Sales Manager'
+);
+
+SELECT * FROM employees
+WHERE salary > (
+  SELECT MAX(salary)
+  FROM employees
+  WHERE job_id = (
+    SELECT job_id FROM jobs WHERE job_title = 'Sales Manager'
+  )
+);
+
+
+Employees whose job is same as 'Ellen' and earning more than Ellen
+------------------------------------------------------------
+SELECT * FROM employees
+WHERE job_id = (
+  SELECT job_id FROM employees WHERE first_name = 'Ellen'
+)
+AND salary > (
+  SELECT salary FROM employees WHERE first_name = 'Ellen'
+);
+
+Employees whose salary is more than average salary of their department
+---------------------------------------------------------------------
+
+SELECT * FROM employees e
+WHERE salary > (
+  SELECT AVG(salary)
+  FROM employees
+  WHERE department_id = e.department_id
+);
+
+Senior-most employee (earliest hire date)
+-------------------------------------------
+SELECT MIN(hire_date) FROM employees;
+
+SELECT * FROM employees
+WHERE hire_date = (
+  SELECT MIN(hire_date) FROM employees
+);
+
+
+Sum of salaries for jobs having sum > sum of 'CLERK' jobs
+-------------------------------------------------------
+
+SELECT SUM(salary) FROM employees WHERE job_id LIKE '%CLERK%';
+
+SELECT job_id, SUM(salary)
+FROM employees
+GROUP BY job_id
+HAVING SUM(salary) > (
+  SELECT SUM(salary) FROM employees WHERE job_id LIKE '%CLERK%'
+);
+
+This query causes ORA-01427 (returns multiple rows)
+---------------------------------------------
+SELECT * FROM employees
+WHERE salary = (
+  SELECT MAX(salary) FROM employees GROUP BY department_id
+);
+
+Use IN instead
+-------------
+SELECT * FROM employees
+WHERE salary IN (
+  SELECT MAX(salary) FROM employees GROUP BY department_id
+)
+ORDER BY department_id;
+
+Employees whose job is same as 'James'
+---------------------------
+May cause ORA-01427 if 'James' has multiple jobs
+
+SELECT * FROM employees
+WHERE job_id = (
+  SELECT job_id FROM employees WHERE first_name = 'James'
+);
+
+Use IN for multi-row result
+----------------------------
+SELECT * FROM employees WHERE job_id IN (
+  SELECT job_id FROM employees WHERE first_name = 'James'
+);
+
+
+-- Operators for multi-row subqueries:
+-- IN, NOT IN, >ANY, <ANY, >ALL, <ALL
+
+ 
+
+3. Multi column sub query
+-------------------------------
+select * from employees where (department_id,salary) 
+IN (select department_id,max(salary) from employees group by department_id)
+order by department_id;
+
+——————————————————————————–
+Find employees whose salary is higher than at least one job's min_salary
+-------------------------------------------------------------------
+SELECT * FROM employees
+WHERE salary > ANY (
+  SELECT min_salary FROM jobs
+);
+
+
+SELECT * FROM employees
+WHERE department_id > ANY (30, 60, 90)
+ORDER BY department_id;
+
+SELECT * FROM employees
+WHERE department_id < ANY (30, 60, 90)
+ORDER BY department_id;
+
+SELECT * FROM employees
+WHERE department_id < ALL (30, 60, 90)
+ORDER BY department_id;
+
+SELECT * FROM employees
+WHERE department_id > ALL (30, 60, 90)
+ORDER BY department_id;
+
+
+
+select the departments where no employees are working
+-----------------------------------------------------
+select * from departments;
+
+select * from employees;
+
+select * from departments where department_id not in(
+select distinct department_id from employees where department_id is not null);
+
+
+
+
+co-releated sub query
+-------------------------
+For every one record it execute the inner query
+
+Find employees having atleast one person reporting under him
+
+non co-related sub query:
+--------------------------------
+select * from employees where employee_id in (
+select manager_id from employees group by manager_id);
+
+co-related sub query:
+------------------------
+select * from employees a where 1 <= (select count(*) from employees b
+where b.manager_id=a.employee_id);
+
+
+
+
+
+
+
+
+Session-9: Oracle PLSQL – Introduction
+==================================
+
+What is PLSQL?
+-------------------
+	In Oracle database management, PL/SQL is a procedural language extension
+	to Structured Query Language (SQL). 
+	The purpose of PL/SQL is to combine database language and procedural programming language.
+	
+	The basic unit in PL/SQL is called a block and is made up of three parts: 
+		a declarative part
+		an executable part and 
+		an exception-building part.
+
+Two blocks in PLSQL
+
+	1. Anonymous Block
+
+	2. Named Block   — Stored as an object in DB
+	  PROCEDURE
+	  FUNCTION
+	  PACKAGE
+	  TRIGGER
+	  
+1. Anonymous Block
+===================
+DECLARE
+   — Variable declaration               — Optional
+Begin
+  — Executable statements               — Mandatory
+ Exception
+  — Exception handling code             — Optional
+end;
+/
+
+=========================================================
+:= assignment operator
+
+— Anonymous Block – very basic block
+------------------------------
+
+Begin
+DBMS_OUTPUT.PUT_LINE(‘Welcome To Oracle PLSQL’);
+END;
+
+
+— PLSQL Anonymous Block to Add two numbers
+-------------------------
+
+declare
+	N1 number:=5;
+	N2 number:=10;
+	RESULT number;
+begin
+	N1:=20;
+	N2:=15;
+	RESULT:=N1+N2;
+	DBMS_OUTPUT.PUT_LINE(RESULT);
+END;
+/
+
+
+SET SERVEROUTPUT ON;
+
+— — PLSQL Anonymous Block to Add two numbers with decimal values
+---------------------------------------------------------------
+declare
+	number1 number(10,2):=20.5;
+	number2 number(10,2):=10.5;
+	result number(10,2);
+begin
+	result := (number1+number2);
+	dbms_output.put_line(‘The addition of ‘||number1||’ and ‘||number2||’ are: ‘||result);
+end;
+
+
+— how to get user input in anonymous block
+---------------------------------------------
+
+declare
+	number1 number(10,2):=&number1;
+	number2 number(10,2):=&number2;
+	result number(10,2);
+begin
+	result := (number1+number2);
+	dbms_output.put_line(‘The addition of ‘||number1||’ and ‘||number2||’ are: ‘||result);
+end;
+
+
+
+— How to re-assin a different value for a variable
+------------------------------------------
+declare
+	number1 number(10,2):=50;
+	number2 number(10,2):=100;
+	result number(10,2);
+begin
+	number1:=20;
+	number2:=30;
+	result := (number1+number2);
+	dbms_output.put_line(‘The addition of ‘||number1||’ and ‘||number2||’ are: ‘||result);
+end;
+
+
+
+
+— Constant variable declaration
+--------------------------------
+declare
+	number1 constant number(10,2):=10.5;
+	number2 number(10,2):=20.5;
+	result number(10,2);
+begin
+	number1:=20;
+	number2:=30;
+	result := (number1+number2);
+	dbms_output.put_line(‘The addition of ‘||number1||’ and ‘||number2||’ are: ‘||result);
+end;
+
+
+
+— Not null variable declaration
+-----------------------------------
+declare
+	number1 constant number(10,2):=0;
+	number2 number(10,2) not null:=0;
+	result number(10,2);
+begin
+	–number1:=20;
+	number2:=null;
+	result := (number1+number2);
+	dbms_output.put_line(‘The addition of ‘||number1||’ and ‘||number2||’ are: ‘||result);
+end;
+
+
+
+
+— select operation in PLSQL
+---------------------------------
+
+
+select * from employees;
+
+set serveroutput on;
+
+declare
+  v_ph_no varchar2(100);
+begin
+  select phone_number into v_ph_no from employees where employee_id = 102;
+  dbms_output.put_line('The phone number of the employee is ' || v_ph_no);
+end;
+
+
+---------------------
+select * from employees;
+
+What if we have more then one row:
+---------------------------------
+ORA-01422: exact fetch returns more than requested number of rows
+
+
+
+set serveroutput on;
+declare
+  v_ph_no varchar2(100);
+begin
+  select phone_number into v_ph_no from employees; -- where employee_id = 102;
+  dbms_output.put_line('The phone number of the employee is ' || v_ph_no);
+end;
+
+
+
+Example:
+--------------
+
+set serveroutput on;
+
+declare
+  v_ph_no varchar2(100);
+  v_job_id varchar2(100);
+begin
+  select phone_number, job_id into v_ph_no, v_job_id from employees where employee_id = 102;
+  dbms_output.put_line('The phone number of the employee is ' || v_ph_no || ' and job id is ' || v_job_id);
+end;
+
+
+
+taking input from the user:
+-------------------------
+
+
+set serveroutput on;
+declare
+  v_salary number;
+  v_phone_number varchar2(30);
+begin
+  select salary, phone_number into v_salary, v_phone_number from employees where employee_id = &emp_id;
+  dbms_output.put_line('The salary of the employee is: ' || v_salary || ' Phone ' || v_phone_number);
+end;
+
+
+
+
+Q: Write a PLSQL anonymous block that shows the usage of the WHILE loop to 
+calculate the average of user entered numbers and entry of more numbers are stopped by entering number 0?
+
+
+
+set serveroutput on;
+declare
+  n number;
+  avg number := 0;
+  sum number := 0;
+  count number := 0;
+begin
+  n := &enter_a_number;
+
+  while (n <> 0)
+  loop
+    count := count + 1;
+    sum := sum + n;
+    n := &enter_a_number;
+  end loop;
+
+  avg := sum / count;
+  dbms_output.put_line('the average is ' || avg);
+end;
+
+
+
+
+
+Session-10: Constant in variable declaration
+---------------------------------------------
+
+Constant in variable declaration:
+========================
+
+set serveroutput on;
+
+declare
+  dob date := '22-Dec-2015';
+begin
+  dob := '23-Dec-2015';
+  dbms_output.put_line(dob);
+end;
+
+
+set serveroutput on;
+
+declare
+  dob constant date := '22-Dec-2015';
+begin
+  -- dob := '23-Dec-2015'; -- this will cause an error: cannot assign to a constant
+  dbms_output.put_line(dob);
+end;
+
+
+————————————————————-
+Not Null in variable declaration
+
+set serveroutput on;
+
+declare
+  dob date not null := '22-Dec-2015';
+begin
+  -- dob := '23-Dec-2015';
+  -- dob := null;  -- this will cause an error due to NOT NULL constraint
+  dbms_output.put_line(dob);
+end;
+
+
+
+conditional statement pl/sql
+--------------------------
+if condition1 then
+  -- statements to execute when condition1 is true
+else
+  -- statements to execute when condition1 is false
+end if;
+
+
+Example:
+-----------
+
+set serveroutput on;
+declare
+  marks number := 75;
+begin
+  if marks >= 50 then
+    dbms_output.put_line('pass');
+  else
+    dbms_output.put_line('fail');
+  end if;
+end;
+
+
+Example:
+--------
+set serveroutput on;
+
+declare
+  a boolean := false;
+begin
+  if a then
+    dbms_output.put_line('The condition is true');
+  else
+    dbms_output.put_line('The condition is false');
+  end if;
+end;
+
+
+Example : looping
+-------------
+set serveroutput on;
+
+declare
+  c number := 0;
+begin
+  loop
+    dbms_output.put_line('Oracle PLSQL');
+    c := c + 1;
+    exit when c = 5;
+  end loop;
+end;
+
+
+
+
+
+
+
+Session-11: DML Transactions in PL/SQL
+=====================================
+
+DML stands for Data Manipulation Language. 
+These statements are mainly used to perform the manipulation activity.
+ It deals with the below operations.
+
+	Data Insertion
+	Data Update
+	Data Deletion
+	Data Selection
+
+In PL/SQL, we can do the data manipulation only by using the SQL commands.
+
+INSERT Statement:
+================
+
+BEGIN
+INSERT INTO <table_name>(<column1 >,<column2>,…<column_n>)
+VALUES(<valuel><value2>,…:<value_n>);
+END;
+
+Example:
+========
+
+set serveroutput on;
+begin
+  insert into customer values(100, 'busycoder academy', 9090909090, 32, 20);
+  commit;
+end;
+
+ 
+
+INSERT INTO SELECT:
+==================
+
+BEGIN
+INSERT INTO <table_name>(<columnl>,<column2>,…,<column_n>)
+SELECT <columnl>,<column2>,.. <column_n> FROM <table_name2>;
+END;
+
+Example:
+========
+select * from customer;
+
+
+create table customer1 as select * from customer;
+
+begin
+insert into customer select * from customer1;
+COMMIT;
+end;
+
+
+
+Update Statement:
+=================
+
+BEGIN
+UPDATE <table_name>
+SET <columnl>=<VALUE1>,<column2>=<value2>,<column_n>=<value_n>
+WHERE <condition that uniquely identifies the record that needs to be update>;
+END;
+
+Example:
+========
+
+begin
+update customer set cust_name='Welcome'; –where cust_id=100003;
+COMMIT;
+end;
+
+ 
+
+DELETE Statement:
+=================
+
+BEGIN
+DELETE
+FROM
+<table_name>
+WHERE <condition that uniquely identifies the record that needs to be update>;
+END;
+
+SELECT Statement:
+=================
+
+BEGIN
+SELECT <columnl>,..<column_n> INTO <vanable 1 >,. .<variable_n>
+FROM <table_name>
+WHERE <condition to fetch the required records>;
+END;
+
+ 
+
+Example code:
+=============
+ basic DML operations (Insert, Update, Delete, Select) on the customer table and prints 
+ confirmation messages using dbms_output.put_line.
+
+set serveroutput on;
+
+declare
+  v_cust_id number;
+  v_cust_name varchar2(250);
+  v_mobile number;
+  v_city varchar2(250);
+begin
+  insert into customer values(100, 'busycoder academy', 9090909090, 32, 20);
+  commit;
+  dbms_output.put_line('Values Inserted');
+
+  update customer set cust_name = 'Welcome'; -- where cust_id = 100003;
+  commit;
+  dbms_output.put_line('Values Updated');
+
+  delete from customer where cust_id = 100000;
+  commit;
+  dbms_output.put_line('Values Deleted');
+
+  select cust_id, cust_name into v_cust_id, v_cust_name
+  from customer
+  where cust_id = 100;
+
+  dbms_output.put_line('Cust Details ' || v_cust_id || ' name ' || v_cust_name);
+end;
+/
+
+
+ %TYPE Attribute and %ROWTYPE Attribute
+ --------------------------------------
+
+%TYPE Attribute
+	Purpose: To declare a variable with the same data type as a column in a table.
+	Use case: Helps maintain consistency and avoids hardcoding data types.
+
+		Syntax:
+		variable_name table_name.column_name%type;
+
+		Example:
+		v_sal employees.salary%type;
+		
+		
+%ROWTYPE Attribute
+-----------------
+
+	Purpose: To declare a record variable that can hold a full row of data from a table.
+	Use case: Useful when you want to fetch or manipulate an entire row at once.
+
+	Syntax:
+	record_variable table_name%rowtype;
+
+	Example:
+	v_emp employees%rowtype;
+
+Key Differences
+--------------
+Feature			%TYPE					%ROWTYPE
+Scope		Single column				All columns (entire row)
+Usage		For individual variables	For record variables
+
+Example	v_name emp.ename%type;	v_emp emp%rowtype;
+
+
+Example step by step:
+==========================
+
+Step 1: Create the original table
+----------------------------
+
+create table cust (
+  cust_id number(8),
+  cust_name varchar2(40),
+  dob date,
+  mobile_no number(10),
+  city varchar2(40)
+);
+
+
+Step 2: Insert records
+-------------------------
+insert into cust values(1000, 'Arun', to_date('12/09/1985','mm/dd/yyyy'), 9090909090, 'Chennai');
+insert into cust values(1001, 'John', to_date('01/27/1982','mm/dd/yyyy'), 9090909093, 'Pune');
+insert into cust values(1002, 'Babu', to_date('06/23/1995','mm/dd/yyyy'), 9090909089, 'Hyd');
+
+commit;
+
+Step 3: View data
+--------------------
+select * from cust;
+
+
+Step 4: Simple PL/SQL block to get a mobile number
+--------------------------------------------------
+
+declare
+  v_mobile_no number(10);
+begin
+  select mobile_no into v_mobile_no from cust where cust_id = 1002;
+  dbms_output.put_line('The mobile number is ' || v_mobile_no);
+end;
+
+
+Step 5: Modify the data type to allow +91 prefix
+------------------------------------------------
+alter table cust modify mobile_no varchar2(40);
+
+
+
+
+Step 6: Rename the old table
+---------------------------
+rename cust to cust_bkp;
+
+Step 7: Recreate table with mobile_no as varchar2
+-----------------------------------------------
+create table cust (
+  cust_id number(8),
+  cust_name varchar2(40),
+  dob date,
+  mobile_no varchar2(20),
+  city varchar2(40)
+);
+
+Step 8: Insert transformed data
+--------------------------------
+insert into cust
+select cust_id, cust_name, dob, '+91-' || mobile_no, city from cust_bkp;
+
+commit;
+
+
+Step 9: Truncate (optional cleanup)
+------------------------------
+truncate table cust;
+
+Step 10: Use %TYPE with new cust table
+----------------------------------------
+
+set serveroutput on;
+declare
+  v_mobile_no hr.cust.mobile_no%type;
+begin
+  select mobile_no into v_mobile_no from cust where cust_id = 1002;
+  dbms_output.put_line('The mobile number is ' || v_mobile_no);
+end;
+
+
+Adding exception handling:
+-----------------------
+set serveroutput on;
+declare
+  v_mobile_no hr.cust.mobile_no%type;
+begin
+  select mobile_no into v_mobile_no from cust where cust_id = 1002;
+  dbms_output.put_line('The mobile number is ' || v_mobile_no);
+
+exception
+  when no_data_found then
+    dbms_output.put_line('No customer found with cust_id = 1002');
+end;
+/
+
+
+
+
+Step 11: Use %ROWTYPE for full row retrieval
+-------------------------------------
+declare
+  v_cust hr.cust%rowtype;
+begin
+  select * into v_cust from cust where cust_id = 1002;
+  dbms_output.put_line('The customer name is ' || v_cust.cust_name);
+  dbms_output.put_line('The customer dob is ' || v_cust.dob);
+end;
+
+
+
+
+
+
+
+
+Session-13: cursor in PL/SQL
+============================
+
+
+What is a Cursor in PL/SQL?
+		A cursor is a pointer that allows you to 
+		process query results row by row in PL/SQL.
+
+	A cursor is a temporary private memory/work area allocated by the Oracle 
+	server to execute and manage the result of a SQL SELECT statement.
+
+	It stores information about the query: result set, processing status, current row pointer.
+
+	Mostly used in PL/SQL when a query returns more than one row.
+
+
+In simple terms:
+	"Think of a cursor like a bookmark that lets you walk through each row of a query result."
+
+	Why Use a Cursor?
+	-----------------
+	To retrieve multiple rows from a SELECT query (PL/SQL normally handles only one row at a time).
+	Needed when you want to loop through a result set and apply logic to each row.
+
+
+
+Cursor Types
+------------------
+Cursor 	Type				Description
+------------------------------------------
+Implicit Cursor				Used automatically by Oracle for single-row queries
+Explicit Cursor				Declared and controlled by the programmer
+
+
+Implicit Cursor in PL/SQL
+--------------------------
+	An implicit cursor is automatically created by Oracle when DML operations
+	(insert, update, delete) or a single-row select is executed.
+
+Key Points:
+------------
+	It is called a session cursor.
+	
+	Oracle manages it internally — you don't declare or open it manually.
+	
+	Oracle opens an implicit cursor every time you run a DML or SELECT statement.
+	
+	As a PL/SQL developer, you cannot control implicit cursors directly.
+	
+	But you can access information about the cursor using its attributes.
+
+Cursor Attributes (for implicit cursor: use sql%attribute)
+------------------------------------------------------------
+Attribute				Description
+sql%isopen				Always false for implicit cursor. Oracle opens and closes it automatically.
+sql%found				Returns true if the DML affected rows.
+sql%notfound			Returns true if the DML did not affect any rows.
+sql%rowcount			Returns the number of rows affected by the last DML statement.
+
+Example – Using sql%rowcount and sql%notfound:
+------------------------------------------
+begin
+  update cust set mobile_no = '+91-' || mobile_no where cust_id = &cust_id;
+
+  if sql%notfound then
+    dbms_output.put_line('no rows are updated');
+  else
+    dbms_output.put_line(sql%rowcount || ' rows updated');
+  end if;
+end;
+/
+
+
+
+
+
+Basic Syntax of Explicit Cursor
+-----------------------------------
+Explicit cursor is a user defined cursor
+    1) Declare the cursor
+    2) Open the cursor
+    3) Fetch the cursor
+    4) Close the cursor
+
+--How to declare a cursor:
+==========================
+
+CURSOR cursor_name
+IS
+   SELECT_statement;
+
+cursor C1                 -- c1 is the cursor variable
+is
+select emp_name from employees;
+
+2) open C1
+
+3) fetch cursor_name into variable1,variable2
+
+4) close c1
+
+
+Ex1: Example cursor:
+===================
+declare
+vemp_salary EMPLOYEES.salary%TYPE;                --Cursor declaration
+cursor c1 is select salary from employees;
+begin
+
+open c1;                                           -- Open cursor
+
+fetch c1 into vemp_salary;                        -- Fetch value from cursor pointer
+dbms_output.put_line(vemp_salary);
+
+fetch c1 into vemp_salary;
+dbms_output.put_line(vemp_salary);
+
+fetch c1 into vemp_salary;
+dbms_output.put_line(vemp_salary);
+
+close c1;                                         -- Close cursor
+
+end;
+
+
+Ex2: with looping
+-------------
+set serveroutput on;
+declare
+  vemp_name EMPLOYEES.FIRST_NAME%TYPE;
+  vemp_salary EMPLOYEES.salary%TYPE;
+  cursor c1 is select first_name, salary from employees;
+begin
+  open c1;
+  loop
+    fetch c1 into vemp_name, vemp_salary;
+    exit when c1%notfound;
+    dbms_output.put_line(vemp_name || vemp_salary);
+  end loop;
+  close c1;
+end;
+
+
+
+Key Steps
+---------
+	Declare the cursor with a SQL query.
+	Open the cursor to start fetching rows.
+	Fetch each row into variables.
+	Exit the loop when no more rows (%NOTFOUND).
+	Close the cursor to release memory.
+
+
+Ex3:with looping
+-----------------------------
+declare
+  cursor c1 is
+    select last_name, employee_id, salary from employees
+    order by salary desc;  -- start with highest-paid employee
+
+  my_name  employees.last_name%type;
+  my_empno employees.employee_id%type;
+  my_sal   employees.salary%type;
+begin
+  open c1;
+  loop
+    fetch c1 into my_name, my_empno, my_sal;
+    exit when (c1%rowcount > 5) or (c1%notfound);
+    dbms_output.put_line('Employee ' || my_name || ' (' || my_empno || ') makes ' || my_sal);
+  end loop;
+  close c1;
+end;
+
+
+
+Cursor FOR Loop (Simpler Version)
+---------------------------------
+cursor for loop:
+
+syntax:
+-------
+for record_index in cursor_name
+loop
+  {...statements...}
+end loop;
+
+
+example:
+------------
+
+declare
+  cursor c1 is select first_name, salary from employees;
+begin
+  for record in c1  -- record is a composite data type here
+  loop
+    dbms_output.put_line(record.first_name || record.salary);
+  end loop;
+end;
+
+
+Example:
+-------
+declare
+  cursor c1(no number) is select * from employees
+    where department_id = no;
+
+  tmp employees%rowtype;
+  
+begin
+  for tmp in c1(30) loop
+    dbms_output.put_line('emp_no:    ' || tmp.employee_id);
+    dbms_output.put_line('emp_name:  ' || tmp.first_name);
+    dbms_output.put_line('emp_dept:  ' || tmp.department_id);
+    dbms_output.put_line('emp_salary:' || tmp.salary);
+    dbms_output.put_line(' ');
+  end loop;
+  -- close c1;  -- not needed for cursor-for-loop
+end;
+
+
+cursor with parameters:
+----------------------
+
+declare
+  vemp_name employees.first_name%type;
+  vemp_salary employees.salary%type;
+
+  cursor c_dept30 is
+    select first_name, salary from employees where department_id = 30;
+
+  cursor c_dept60 is
+    select first_name, salary from employees where department_id = 60;
+
+begin
+  open c_dept30;
+  loop
+    fetch c_dept30 into vemp_name, vemp_salary;
+    exit when c_dept30%notfound;
+    dbms_output.put_line(vemp_name || vemp_salary);
+  end loop;
+  close c_dept30;
+
+  open c_dept60;
+  loop
+    fetch c_dept60 into vemp_name, vemp_salary;
+    exit when c_dept60%notfound;
+    dbms_output.put_line(vemp_name || vemp_salary);
+  end loop;
+  close c_dept60;
+end;
+
+
+
+
+
+
+
+Why We Need Cursors in PL/SQL
+------------------------------
+	When you write a SELECT query that returns multiple rows, 
+	you cannot directly assign it to a scalar variable using SELECT ... INTO. 
+	You need a mechanism to iterate row by row — that’s where cursors help.
+
+
+Scalar Variable with SELECT INTO
+--------------------------------------
+This is a basic way to fetch a single value.
+
+set serveroutput on;
+declare
+  v_salary employees.salary%type;
+begin
+  select salary into v_salary from employees where employee_id = 100;
+  dbms_output.put_line('The salary of the employee is: ' || v_salary);
+end;
+/
+
+If multiple or zero rows are returned, it raises:
+-------------------------------------------
+NO_DATA_FOUND
+TOO_MANY_ROWS
+
+
+
+Basic Cursor Use
+-------------
+set serveroutput on;
+declare
+  v_salary employees.salary%type;
+  cursor c1 is select salary from employees;
+begin
+  open c1;
+  fetch c1 into v_salary;
+  dbms_output.put_line(v_salary);
+  close c1;
+end;
+/
+
+Cursor in Loop
+------------------
+set serveroutput on;
+declare
+  v_salary employees.salary%type;
+  cursor c1 is select salary from employees;
+begin
+  open c1;
+  loop
+    fetch c1 into v_salary;
+    exit when c1%notfound;
+    dbms_output.put_line(v_salary);
+  end loop;
+  close c1;
+end;
+/
+
+Cursor for Multiple Columns
+----------------------------
+set serveroutput on;
+declare
+  v_name employees.first_name%type;
+  v_salary employees.salary%type;
+  cursor c1 is select first_name, salary from employees;
+begin
+  open c1;
+  loop
+    fetch c1 into v_name, v_salary;
+    exit when c1%notfound;
+    dbms_output.put_line(v_name || ' earns ' || v_salary);
+  end loop;
+  close c1;
+end;
+/
+
+Cursor FOR Loop (Shortcut)
+-----------------------
+set serveroutput on;
+declare
+  cursor c1 is select first_name, salary from employees;
+begin
+  for record in c1 loop
+    dbms_output.put_line(record.first_name || ' earns ' || record.salary);
+  end loop;
+end;
+/
+
+Note: No need to open/fetch/close — PL/SQL does it automatically.
+
+Parameterized Cursor
+----------------------
+set serveroutput on;
+declare
+  cursor c1(p_dept number) is select salary from employees where department_id = p_dept;
+  v_salary number;
+begin
+  open c1(30);
+  loop
+    fetch c1 into v_salary;
+    exit when c1%notfound;
+    dbms_output.put_line(v_salary);
+  end loop;
+  close c1;
+end;
+
+
+
+
+
+
+
+
+
+
+Session-14: Stored procedure in PL/SQL
+========================================
+
+What is a Procedure in PL/SQL?
+------------------------------
+	A procedure is a named PL/SQL block that performs a specific task.
+	It can be stored in the database and called later by name.
+
+–Stored as a precompiled object
+–Compile once and execute multiple times
+–Provides reusability
+–Procedure are explicitly executed by user
+
+Advantage of procedure:
+-------------------------
+1. Code Reusability
+	You write the logic once and reuse it multiple times by simply calling the procedure.
+	Avoids code duplication.
+
+2. Modularity
+	Procedures break down large programs into smaller, manageable, and logical blocks.
+	Each block focuses on a specific task (e.g., validate user, calculate tax).
+
+3. Maintainability
+	Any future changes in business logic can be made in one place—inside the procedure.
+	Easier updates and bug fixing.
+
+4. Security
+	You can control access by granting EXECUTE privilege 
+	without exposing the actual table data or logic.
+
+	Users run the logic but don’t see the code.
+
+5. Performance
+	Procedures are stored compiled in the database.
+	Reduces network traffic: multiple SQL statements are executed with a single call.
+	Faster than sending individual SQL queries.
+
+6. Parameterization
+	Procedures accept IN, OUT, and IN OUT parameters for flexible data handling.
+	Send data in,get results out.
+
+7. Integration with Triggers, Jobs, Applications
+	Procedures can be called from:
+
+	Triggers (e.g., audit logs)
+	Scheduled Jobs (e.g., daily backups)
+	Frontend Applications (Java, .NET, Forms)
+
+Real-World Example:
+	A bank has a procedure process_salary that calculates and updates 
+	monthly salary for thousands of employees—run by HR every month using a single EXEC call.
+
+
+Fourdifferent types of PL/SQL program units
+=========================================
+PROCEDURE
+Function
+Package
+Trigger
+
+1. PROCEDURE
+-----------
+	A Procedure is a block of PL/SQL code that performs a specific
+	task and can be called with or without parameters.
+
+	Use When:
+	You want to perform an action like insert, update, delete, or display.
+
+	Syntax:
+	CREATE PROCEDURE greet_user(name IN VARCHAR2)
+	AS
+	BEGIN
+		dbms_output.put_line('Hello, ' || name);
+	END;
+
+	Call:
+
+	EXEC greet_user('Rajeev');
+	
+	
+2. FUNCTION
+------------------
+	A Function is like a procedure but must return a value. It can also take parameters.
+
+	Use When:
+	You need to calculate and return a result (e.g., tax, total, grade).
+
+	Syntax:
+	CREATE FUNCTION get_tax(salary IN NUMBER)
+	RETURN NUMBER
+	AS
+	BEGIN
+		RETURN salary * 0.1;
+	END;
+
+	Call:
+	SELECT get_tax(50000) FROM dual;
+
+3. PACKAGE
+-----------
+	A Package is a collection of related procedures, functions, 
+	variables, cursors grouped together in a single unit.
+
+Use When:
+You want to organize related code, hide implementation, and improve performance.
+
+Parts:
+Specification: The header, visible to users
+
+Body: The actual implementation
+
+Example:
+
+Specification:
+--------------
+
+CREATE PACKAGE emp_pkg AS
+    PROCEDURE add_employee(name VARCHAR2);
+    FUNCTION get_count RETURN NUMBER;
+END emp_pkg;
+
+Body:
+------
+CREATE PACKAGE BODY emp_pkg AS
+    v_count NUMBER := 0;
+
+    PROCEDURE add_employee(name VARCHAR2) IS
+    BEGIN
+        INSERT INTO emp(name) VALUES(name);
+        v_count := v_count + 1;
+    END;
+
+    FUNCTION get_count RETURN NUMBER IS
+    BEGIN
+        RETURN v_count;
+    END;
+END emp_pkg;
+
+
+4. TRIGGER
+-----------
+	A Trigger is an automatic PL/SQL block that executes in 
+	response to an event like INSERT, UPDATE, or DELETE.
+
+	Use When:
+	-------
+	You want automatic actions on data changes (e.g., auditing, validation).
+
+	Syntax:
+	-------
+	CREATE OR REPLACE TRIGGER trg_before_insert
+	BEFORE INSERT ON students
+	FOR EACH ROW
+	BEGIN
+		:NEW.created_at := SYSDATE;
+	END;
+
+Comparison Table
+----------------
+Feature			Procedure			Function			Package			Trigger
+Returns Value	❌					✅					✅ (if function)	❌ (executes action)
+Called by		EXEC				SELECT				EXEC package.proc	Auto on event
+Use for	Tasks	Results				Grouping 			code				Auto logic on DML
+Parameters		✅					✅					✅					❌ (uses :NEW/:OLD)
+
+
+
+
+
+2 Types of procedure
+====================
+
+1) Static procedure
+-------------------------
+–will not contain any arguments
+–always display same output
+
+2) Dynamic procedure
+-------------------
+with argument variable
+
+
+
+
+
+Example: Simplest procedure:
+----------------------------
+CREATE PROCEDURE greetings
+AS
+BEGIN
+    dbms_output.put_line('Welcome to PLSQL Session!');
+END;
+
+
+Ex2:
+----------
+CREATE OR REPLACE PROCEDURE greetings
+AS
+BEGIN
+dbms_output.put_line(‘Welcome to PLSQL Session!’);
+END;
+
+
+how to execute:
+------------------
+exec greetings;
+
+execute greeetings;
+
+begin
+greetings;
+end;
+/
+
+
+how to Drop procedure 
+----------------------
+Drop procedure procedure_name;
+
+
+Example: procedure with in parameter:
+---------------------------------------
+CREATE OR REPLACE PROCEDURE greetings1(p_name IN varchar2)
+AS
+BEGIN
+dbms_output.put_line(‘Hello’||p_name);
+END;
+
+
+exec greetings1(‘Welcome to PLSQL’);
+
+
+Example: procedure with two in parameter and returning result:
+------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE total1(N1 IN number,N2 IN number,total out number)
+AS
+BEGIN
+total:=N1+N2;
+END;
+
+declare
+x number;
+begin
+total1(7,8,x);
+dbms_output.put_line(‘Total: ‘||x);
+end;
+
+
+Example: procedure with two in parameter and not returning result:
+------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE total1(N1 IN number,N2 IN number)
+AS
+total1 number;
+BEGIN
+total1:=N1+N2;
+dbms_output.put_line(‘Total: ‘||total1);
+END;
+
+exec total1(41,57);
+
+Example: procedure with  in out parameter:
+--------------------------------------------
+create procedure INOUT_Multiplication(x IN OUT number)
+As
+begin
+x:=x*5;
+end;
+
+how to call:
+------------
+declare
+x number;
+begin
+x:=6;
+INOUT_Multiplication(x);
+dbms_output.put_line(‘multiplication: ‘||x);
+end;
+
+
+Example: procedure with  in out parameter:
+--------------------------------------------
+CREATE OR REPLACE PROCEDURE total_salary (in_emp_id IN NUMBER)
+IS
+    v_salary NUMBER(10);
+BEGIN
+    SELECT salary + (salary * NVL(commission_pct, 0))
+    INTO v_salary
+    FROM employees
+    WHERE employee_id = in_emp_id;
+
+    DBMS_OUTPUT.PUT_LINE('The Total salary of employee ' || in_emp_id || ' is: ' || v_salary);
+END;
+
+
+calling store procedure:
+--------------------------
+execute total_salary(165);
+
+
+Example: store procedure:
+-----------------------
+CREATE OR REPLACE PROCEDURE pro1 (emp_no IN NUMBER,temp OUT employees%ROWTYPE)
+IS
+BEGIN
+    SELECT *
+    INTO temp
+    FROM employees
+    WHERE employee_id = emp_no;
+END;
+
+how to call it?
+-----------------
+DECLARE
+    v_emp employees%ROWTYPE;
+BEGIN
+    pro1(101, v_emp);
+    DBMS_OUTPUT.PUT_LINE('Name: ' || v_emp.first_name || ' ' || v_emp.last_name);
+END;
+
+
+
+
+Data Dictionary
+----------------
+What is a Data Dictionary Table in Oracle?
+---------------------------------
+	The Data Dictionary is a set of read-only tables and views 
+	that store metadata about the Oracle database.
+
+	Think of it as the database’s own internal documentation.
+
+What Does It Store?
+------------------------
+It contains details about:
+
+Type					Examples
+-------------------------------------
+Tables					Names, columns, data types, constraints
+Users					Usernames, roles, privileges
+Indexes					Index names, columns used
+Views					Definitions, dependencies
+Procedures/Functions	Names, parameters, return types
+Triggers				Trigger timing, events, target tables
+Storage					Tablespace, segments, extents
+
+Common Data Dictionary Views:
+-------------------------------------
+View Name					Description
+USER_TABLES	Tables 			owned by the current user
+USER_TAB_COLUMNS			Columns of user's tables
+USER_CONSTRAINTS			Constraints on user's tables
+USER_OBJECTS				All objects (tables, views, procs, etc.)
+ALL_TABLES					All tables accessible by the user
+DBA_TABLES					All tables in the database (DBA only)
+USER_PROCEDURES				List of procedures and functions owned
+
+Example Queries:
+----------------------
+List all your tables:
+
+
+SELECT table_name FROM user_tables;
+List all columns of a table:
+
+
+SELECT column_name, data_type, nullable 
+FROM user_tab_columns 
+WHERE table_name = 'EMPLOYEES';
+List all constraints:
+
+
+SELECT constraint_name, constraint_type, table_name 
+FROM user_constraints;
+
+
+Data dictionary table:
+----------------------
+User_procedures;
+User_objects;
+user_source;
+
+listing all procedure define for hr schema:
+------------------------------------------
+select * from all_procedures where owner='HR';
+
+
+listing source code of procedure define for hr schema and named ADD_JOB_HISTORY
+---------------------------------------------------------------------------------
+select text from all_source where owner='HR' and type='PROCEDURE' and name='ADD_JOB_HISTORY';
+
+
+
+
+
+
+
+
+Procedure with Cursor:
+=====================
+
+
+Example 1:
+------------
+What This Procedure Does:
+	Declares a cursor (c1) that selects the first 3 employees from the employees table.
+	Opens the cursor, fetches one row at a time into emp_first_name and emp_salary.
+	Prints only the first_name using dbms_output.put_line.
+	Loop exits when all 3 rows are fetched.
+	Closes the cursor at the end.
+
+
+create or replace procedure get_employees
+as
+    emp_first_name employees.first_name%type;
+    emp_salary employees.salary%type;
+    
+    cursor c1 is
+        select first_name, salary from employees where rownum <= 3;
+begin
+    open c1;
+    
+    loop
+        fetch c1 into emp_first_name, emp_salary;
+        exit when c1%notfound;
+        
+        dbms_output.put_line(emp_first_name);
+    end loop;
+    
+    close c1;
+end;
+
+calling it:
+----------
+exec get_employees;
+
+
+
+
+Example 2:
+------------
+
+create or replace procedure get_employees ( in_dept_id in employees.department_id%type)
+is
+    v_first_name employees.first_name%type;
+    v_salary     employees.salary%type;
+
+    cursor c1 is
+        select first_name, salary
+        from employees
+        where department_id = in_dept_id;
+begin
+    open c1;
+
+    loop
+        fetch c1 into v_first_name, v_salary;
+        exit when c1%notfound;
+
+        dbms_output.put_line(v_first_name);
+        dbms_output.put_line(v_salary);
+    end loop;
+
+    close c1;
+end;
+
+how to call it:
+---------------------
+exec get_employees(60);
+
+
+
+
+
+
+
+
+ 
+
+Function in PLSQL
+---------------------
+A function is a named PL/SQL Block which is similar to a procedure. 
+The major difference between PL/SQL function or procedure, 
+function return always value where as procedure may or may not return value.
+
+A function is the subprogram that returns a value when called. 
+It is stored in database or declared within a block.
+
+Functions can return more than one value via OUT parameter. 
+Fuctions can accept default values
+
+Oracle pre-defined
+-------------
+	substr()
+	max()
+	rank()
+	
+	select substr('BusyCoder Academy', 1, 3) from dual;
+Syntex:
+----------
+
+CREATE [OR REPLACE] FUNCTION function_name [(parameter_1 [IN] [OUT] data_type,
+parameter_2 [IN] [OUT] data_type,
+parameter_N [IN] [OUT] data_type] RETURN return_data_type
+IS
+–the declaration statements
+BEGIN
+— the executable statements
+return return_value;
+EXCEPTION
+— the exception-handling statements
+END;
+
+
+
+Note:
+----
+An IN parameter is a read-only parameter. 
+If the function tries to change the value of the IN parameters,
+ the compiler will issue an error message. 
+ You can pass a constant, literal, initialized variable, or 
+ expression to the function as the IN parameter.
+ 
+An OUT parameter is a write-only parameter.
+ The OUT parameters are used to return values back to the calling program. 
+ An OUT parameter is initialized to default value of its type 
+ when the function begins regardless of its original value before being passed to the function.
+
+An IN OUT parameter is read and write parameter.
+ It means the function reads value from an IN OUT parameter, 
+ change its value and return it back to the calling program.
+
+The function must have at least one RETURN statement in the execution section.
+ The RETURN clause in the function header specifies the data type of returned value.
+
+
+Example 1:
+-------------
+Write a function that Queries the employees table, Counts the total number of records using count(*)
+and Stores it in the variable v_count and finally Returns that value to the caller
+
+create or replace function f_count
+return number
+is
+    v_count number;
+begin
+    select count(*) into v_count from employees;
+    return v_count;
+end;
+
+how to call it :
+---------------
+select f_count() from dual;
+select f_count from dual;
+
+
+In pl/sql block:
+-------------
+declare
+    total number;
+begin
+    total := f_count;
+    dbms_output.put_line('Total employees: ' || total);
+end;
+
+
+
+Example 2:
+-------------
+
+create or replace function f_count ( v_department_id out number,v_count out number) return number
+is
+    temp_dept_id number;
+    temp_count   number;
+begin
+    select department_id, count(*) 
+    into temp_dept_id, temp_count
+    from employees
+    where department_id is not null
+    group by department_id
+    fetch first 1 row only;
+
+    v_department_id := temp_dept_id;
+    v_count := temp_count;
+
+    return temp_count;
+end;
+
+
+
+Example 3:
+-------------
+
+create or replace function hello_function (
+    p_name in varchar2
+)
+return varchar2
+as
+    v_result varchar2(100);
+begin
+    v_result := 'Hello ' || p_name;
+    return v_result;
+end hello_function;
+
+how to call?
+-----------
+select hello_function('chandra') from dual;
+
+
+
+Example 4:
+-------------
+Accepts employee_id as input, Fetches that employee's job and salary.
+
+Applies conditional hike logic:
+	AD_VP gets 50% hike if salary < 20000
+	SA_REP gets 20% hike if salary < 1500
+
+	Others get no hike
+
+	Returns new salary (with or without hike)
+
+
+create or replace function salary_hike (p_emp_id in number) return number
+as
+    v_job      employees.job_id%type;
+    v_sal      employees.salary%type;
+    v_raise    number(3,2);
+    v_new_sal  number(6);
+begin
+    select job_id, salary
+    into v_job, v_sal
+    from employees
+    where employee_id = p_emp_id;
+
+    case
+        when v_job = 'AD_VP' then
+            if v_sal < 20000 then
+                v_raise := 0.50;
+            else
+                v_raise := 0;
+            end if;
+
+        when v_job = 'SA_REP' then
+            if v_sal < 1500 then
+                v_raise := 0.20;
+            else
+                v_raise := 0;
+            end if;
+
+        else
+            v_raise := 0;
+    end case;
+
+    if v_raise > 0 then
+        v_new_sal := v_sal + v_sal * v_raise;
+    else
+        v_new_sal := v_sal;
+    end if;
+
+    return v_new_sal;
+end salary_hike;
+
+
+How to Call
+
+1. For a single employee:
+-----------------------
+select salary_hike(103) from dual;
+
+2. For all employees (as a column):
+-------------------------------
+select employee_id, first_name, salary, salary_hike(employee_id) as new_salary
+from employees;
+
+
+
+
+
+
+Example 5:
+-------------
+
+Fetch the salary from the employees table for the given employee_id.
+
+Apply:
+
+10% hike if salary > 10000
+20% hike otherwise
+
+Return the new salary (with hike)
+
+
+employee_id IN
+salary, >10000 10%
+salary <10000 20%
+
+
+
+Version 1: Using if...else
+-----------------------------
+create or replace function salary_incr (in_employee_id in number) return number
+is
+    v_salary       number(10);
+    v_incr_salary  number(10);
+begin
+    select salary
+    into v_salary
+    from employees
+    where employee_id = in_employee_id;
+
+    if v_salary > 10000 then
+        v_incr_salary := v_salary + (v_salary * 0.1);
+    else
+        v_incr_salary := v_salary + (v_salary * 0.2);
+    end if;
+
+    return v_incr_salary;
+end salary_incr;
+
+
+Version 2: Using case expression (compact and elegant)
+------------------------------------------------------
+
+create or replace function salary_incr (in_employee_id in number) return number
+is
+    v_salary number(10);
+begin
+    select case
+             when salary > 10000 then salary + (salary * 0.1)
+             else salary + (salary * 0.2)
+           end
+    into v_salary
+    from employees
+    where employee_id = in_employee_id;
+
+    return v_salary;
+end salary_incr;
+
+Sample Query to Use the Function
+---------------------
+
+select employee_id, salary, salary_incr(employee_id) as increased_salary
+from employees;
+
+
+
+
+Example 6:
+-------------
+— write a PLSQL Function to to find given year is leap year or non leap year
+
+	Accepts a year (e.g., 2024, 2025)
+	Converts '01-FEB-' || year into a valid date
+	Uses last_day() to get the last day of February in that year
+	Converts the day into a string ('28' or '29')
+	If the result is '29', it’s a leap year
+	Returns 'LEAP YEAR' or 'NON LEAP YEAR' accordingly
+
+
+create or replace function is_leap_year (nYr in number)return varchar2
+is
+    v_day varchar2(2);
+begin
+    select to_char(last_day(to_date('01-FEB-' || to_char(nYr), 'dd-mon-yyyy')), 'dd')
+    into v_day
+    from dual;
+
+    if v_day = '29' then
+        return 'LEAP YEAR'; -- if Feb has 29 days, it's a leap year
+    else
+        return 'NON LEAP YEAR'; -- else it's not
+    end if;
+end;
+
+how to call :
+------------
+elect is_leap_year(2024) from dual;
+
+
+Example 7:
+-------------
+write a PLSQL Function to select city of the given employee_id
+
+create or replace function get_city ( in_emp_id number) return varchar2
+as
+    result varchar2(50);
+begin
+    select l.city
+    into result
+    from employees e, departments d, locations l
+    where e.department_id = d.department_id
+      and d.location_id = l.location_id
+      and e.employee_id = in_emp_id;
+
+    return result;
+end;
+/
+
+What This Function Does:
+--------------------------
+	Accepts employee_id as input.
+	Joins the employees, departments, and locations tables.
+	Returns the city where that employee is located.
+
+
+
+Function overloading:
+=====================
+We have flexiblity to call function with different argument
+-----------------------------------------------------
+select substr('BusyCoder Academy', 5) from dual;
+select substr('BusyCoder Academy', 1, 3) from dual;
+
+What if i define function overloading:
+-----------------------------------------
+create or replace function ADD_NUM(A NUMBER, B NUMBER) return number
+IS
+c number;
+BEGIN
+c:=A+B;
+return c;
+END;
+
+another function:
+------------------
+create or replace function ADD_NUM(A NUMBER, B NUMBER, C NUMBER) return number
+IS
+d number;
+BEGIN
+d:=A+B+C;
+return d;
+END;
+
+
+now if i call:
+------------------
+select add_num(5,10) from dual;
+
+
+Oracle only store defination, so new fuction that recompiled replace older one
+
+— How to over come this?
+
+We have to create a package.
+------------------------------
+
+
+What is a Package in PL/SQL?
+------------------------
+	PL/SQL packages:
+		Group logically related components:
+		PL/SQL types
+		Variables, data structures, and exceptions
+		Subprograms: Procedures and functions
+
+	Consist of two parts:
+		A specification
+		A body
+
+		Enable the Oracle server to read multiple objects into memory at once
+
+
+Creating the Package Specification
+----------------------------------
+Syntax:
+
+create [or replace] package package_name is | as
+    public type and variable declarations
+    subprogram specifications
+end [package_name];
+
+The package specification.
+	Variables declared in the package specification are initialized to null by default.
+	
+	All the constructs declared in a package specification are visible to users 
+	who are granted privileges on the package.
+
+
+
+Example of Package Specification:
+------------------------
+
+comm_pkg
+
+create or replace package comm_pkg is
+    std_comm number := 0.10; -- initialized to 0.10
+    procedure reset_comm(new_comm number);
+end comm_pkg;
+/
+
+	STD_COMM is a global variable initialized to 0.10.
+	
+	RESET_COMM is a public procedure used to reset the standard commission 
+	based on some business rules. It is implemented in the package body.
+
+
+
+create or replace package pkg_test as
+
+function area (a in number) return number;
+function area (a in number, b in number) return number;
+end;
+/
+
+create or replace package body pkg_test as
+function area(a in number)
+return number is
+begin
+return a*a;
+end;
+function area(a in number, b in number)
+return number is
+begin
+return a*b;
+end;
+end;
+/
+
+begin
+dbms_output.put_line(pkg_test.area(3, 4));
+dbms_output.put_line(pkg_test.area(5));
+end;
+/
+
+
+
+
+
+
+
+
+Assignment	
+------------
+Write a procedure (oracle plsql) to do any one of the following:
+	(a) update the table course and set the fee of the input course name equal to fee of java course.
+	(b) insert a new row for given input course and set the fee lowest of all 
+		courses available in the table. Condition is: do
+		(a) if the input course name is already present in the table otherwise do 
+		(b) if the input course name is not in the table.
+
+Step 1: Course Table Setup and Data
+------------------------------------
+create table course (
+    cid number primary key,
+    cname varchar2(100),
+    duration number,
+    fee number
+);
+
+insert some records:
+-----------------
+insert into course (cid, cname, duration, fee) values (101, 'java', 30, 13000);
+insert into course (cid, cname, duration, fee) values (102, 'c', 20, 5000);
+insert into course (cid, cname, duration, fee) values (104, 'oracle', 20, 20000);
+insert into course (cid, cname, duration, fee) values (105, 'python', 20, 30000);
+insert into course (cid, cname, duration, fee) values (106, 'sql', 20, 1000);
+
+commit;
+
+
+Step 3: create Procedure: proc_coursefeeupdateTry
+-------------------------------------------------
+
+create or replace procedure proc_coursefeeupdateTry (coursename in course.cname%type,java_fee  out number)
+is
+    n_fee         number;
+    j_fee         number;
+    l_course_name course.cname%type;
+begin
+    begin
+        select c.cname
+        into l_course_name
+        from course c
+        where c.cname = coursename;
+    exception
+        when no_data_found then
+            null;
+    end;
+
+    if l_course_name = coursename then
+        select t.fee into j_fee from course t where t.cname = 'java';
+        java_fee := j_fee;
+
+        update course t set t.fee = java_fee where t.cname = coursename;
+        dbms_output.put_line('Course fee updated'); -- course already exists, fee updated
+    else
+        dbms_output.put_line(sqlerrm || '-' || sqlcode);
+        select min(t.fee) into n_fee from course t;
+        java_fee := n_fee;
+
+        insert into course values (103, coursename, 40, java_fee); -- course added
+        dbms_output.put_line('New course added');
+    end if;
+
+    commit;
+end;
+
+
+Step 4: Customer Table Setup
+--------------------------
+
+drop table customer;
+
+create table customer (
+    cust_id   number,
+    cust_name varchar2(30),
+    mobile    number(10),
+    age       number,
+    city_id   number
+);
+
+Step 5: create Procedure: insert_cust
+--------------------------------------
+create or replace procedure insert_cust (
+    in_cust_id    number,
+    in_cust_name  varchar2,
+    in_mobile_no  number,
+    in_age        number,
+    in_city_id    number
+)
+as
+begin
+    insert into customer values (in_cust_id, in_cust_name, in_mobile_no, in_age, in_city_id);
+    commit;
+end;
+
+Step 6: Sample Calls
+------------------------
+exec insert_cust(100, 'BusyCoder', 7010080468, 30, 23);
+exec insert_cust(101, 'BusyCoder', 7010080468, 30, 23);
+
+
+
+Step 7: Customer Table with DOB & City Variant
+------------------------------
+create table customer (
+    cust_id    number(8),
+    cust_name  varchar2(40),
+    dob        date,
+    mobile_no  varchar2(20),
+    city       varchar2(40)
+);
+
+
+Step 8: create Procedure: proc_insert_cust
+-------------------------------------------------
+create or replace procedure proc_insert_cust (
+    in_cust_id    number,
+    in_cust_name  varchar2,
+    in_mobile_no  varchar2,
+    in_dob        varchar2,
+    in_city_id    varchar2
+)
+as
+begin
+    insert into customer values (
+        in_cust_id,
+        in_cust_name,
+        to_date(in_dob, 'dd-mm-yyyy'),
+        in_mobile_no,
+        in_city_id
+    );
+    commit;
+end;
+
+
+Sample Call
+-------------
+exec proc_insert_cust(100, 'BusyCoder', '+91-9090909090', '12-12-1990', 'Chennai');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+create table course(cid number primary key, cname varchar2(100), duration number, fee number);
+
+insert into course (CID, CNAME, DURATION, FEE)
+values (101, ‘java’, 30, 13000);
+
+insert into course (CID, CNAME, DURATION, FEE)
+values (102, ‘c’, 20, 5000);
+
+insert into course (CID, CNAME, DURATION, FEE)
+values (104, ‘oracle’, 20, 20000);
+
+insert into course (CID, CNAME, DURATION, FEE)
+values (105, ‘python’, 20, 30000);
+
+insert into course (CID, CNAME, DURATION, FEE)
+values (106, ‘sql’, 20, 1000);
+
+Commit;
+
+create or replace procedure proc_CourseFeeUpdateTry(coursename in course.cname%type,
+java_fee out number) is
+n_fee number;
+j_fee number;
+
+l_course_name course.cname%type;
+begin
+begin
+select c.cname
+into l_course_name
+from course c
+where c.cname = coursename;
+exception
+when no_data_found then
+null;
+end ;
+
+if l_course_name = coursename then
+
+select t.fee into j_fee from course t where t.cname = ‘java’;
+java_fee := j_fee;
+update course t set t.fee = java_fee where t.cname = coursename;
+dbms_output.put_line(‘course fee updated’); — course was not added just updted
+else
+dbms_output.put_line(sqlerrm || ‘-‘ || sqlcode);
+select min(t.fee) into n_fee from course t;
+java_fee := n_fee;
+insert into course values (103, coursename, 40, java_fee); — leave message
+dbms_output.put_line(‘new course added’);
+end if;
+commit;
+end;
+
+————————————————————————————————–
+— insert statement in procedure
+
+select * from customer;
+
+drop table customer;
+
+create table customer
+(
+cust_id number,
+cust_name varchar2(30),
+mobile number(10),
+age number,
+city_id number
+) ;
+
+create or replace procedure insert_cust
+(in_cust_id number, in_cust_name varchar2,in_mobile_no number,in_age number,in_city_id number)
+as
+begin
+insert into customer values( in_cust_id,in_cust_name,in_mobile_no,in_age,in_city_id);
+COMMIT;
+end;
+
+select * from customer;
+
+truncate table customer;
+
+exec insert_cust(100,’NIC IT Academy’,7010080468,30,23);
+
+exec insert_cust(101,’NIC IT Academy’,7010080468,30,23);
+
+=========================================================================================
+
+Name Null? Type
+——— —– ————
+CUST_ID NUMBER(8)
+CUST_NAME VARCHAR2(40)
+DOB DATE
+MOBILE_NO VARCHAR2(20)
+CITY VARCHAR2(4
+
+select * From customer;
+
+create or replace procedure proc_insert_cust
+(in_cust_id number, in_cust_name varchar2,in_mobile_no varchar2,in_dob varchar2,in_city_id varchar2)
+as
+begin
+insert into customer values( in_cust_id,in_cust_name,in_mobile_no,in_dob,in_city_id);
+COMMIT;
+end;
+
+exec proc_insert_cust(100,’NIC IT Academy’,to_date(’12-12-1990′,’mm-dd-yyyy’),’+91-9090909090′,’Chennai’);
+
+exec insert_cust(101,’NIC IT Academy’,7010080468,30,23);

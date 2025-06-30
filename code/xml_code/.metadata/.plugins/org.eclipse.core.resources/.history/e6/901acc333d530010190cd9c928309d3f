@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:order xmlns:tns="http://www.oracle.com/orders" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.oracle.com/orders orders.xsd ">
+  <orderId>orderId</orderId>
+  <customerId>customerId</customerId>
+  <orderItem>
+    <itemId>0</itemId>
+    <itemName>itemName</itemName>
+    <quantity>0</quantity>
+  </orderItem>
+</tns:order>
